@@ -1,0 +1,35 @@
+base
+├───data
+├───env
+└───project
+    │   db.sqlite3
+    │   manage.py
+    │
+    ├───app1
+    │   │   admin.py
+    │   │   apps.py
+    │   │   models.py
+    │   │   tests.py
+    │   │   urls.py
+    │   │   views.py
+    │   │   __init__.py
+    │   │
+    │   ├───migrations
+    │   │       tags.py
+    │   │       __init__.py
+    │   │
+    │   └───template tags
+    │           001_initial.py
+    │           __init__.py
+    │
+    ├───app2
+    ├───appn
+    ├───media
+    ├───project
+    │       settings.py
+    │       urls.py
+    │       wsgi.py
+    │       __init__.py
+    │
+    ├───static
+    └───templates
