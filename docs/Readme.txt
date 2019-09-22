@@ -38,7 +38,7 @@ Unit Testing Instructions
 
 
 System Testing Instructions
-
+-We will run the app on the test users devices one week before the due date of the finished project
 
 
 Other Notes
