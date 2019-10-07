@@ -38,6 +38,7 @@ Items
 + price : DecimalField
 + desciption : CharField
 + sold : BooleanField
++ auction_id : 
 --------------------
 --------------------
 
@@ -51,6 +52,7 @@ Users
 + last_name : CharField
 + email : EmailFields
 + phoneNumber : CharField or PhoneNumberField
++ budget ?
 --------------------
 --------------------
 .
@@ -79,6 +81,8 @@ Auction
 + endTime : 
 + desciption : CharField
 + admin_id : 
++ startTime:
++ duration : 
 
 --------------------
 --------------------
@@ -255,6 +259,8 @@ Live_Item
 -----------------------------
 Photo  #might not do this like this....
 -----------------------------
++ item_id : 
++ photo : 
 -----------------------------
 -----------------------------
 
