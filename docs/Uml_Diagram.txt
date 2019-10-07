@@ -39,6 +39,7 @@ Items
 + desciption : CharField
 + sold : BooleanField
 + auction_id : 
++ duration :  ## null if silent auction
 --------------------
 --------------------
 
@@ -65,7 +66,7 @@ Admin
 + id: AutoField
 + user_id: 
 +
-
++
 --------------------
 --------------------
 .
@@ -78,12 +79,26 @@ Auction
 --------------------
 + id : AutoField
 + name : CharField
-+ endTime : 
++ type : ## silent or live
 + desciption : CharField
 + admin_id : 
 + startTime:
 + duration : 
 
+--------------------
+--------------------
+
+##
+
+--------------------
+Bid
+--------------------
++ id : AutoField
++ auction_id : 
++ item_id : 
++ user_id : 
++ bidAmount :
++ timeBidPlaced : 
 --------------------
 --------------------
 
@@ -265,6 +280,13 @@ Photo  #might not do this like this....
 -----------------------------
 
 ##////////////////////////////////////
+
+
+
+
+
+
+
 
 
 
