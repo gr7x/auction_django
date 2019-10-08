@@ -53,7 +53,6 @@ Users
 + last_name : CharField
 + email : EmailFields
 + phoneNumber : CharField or PhoneNumberField
-+ budget ?
 --------------------
 --------------------
 .
