@@ -1,4 +1,4 @@
-# based on project structure file -- will be put into a tool during last week
+# based on project structure file -- will be put into a tool during last week -> https://www.lucidchart.com/invitations/accept/f95dbde6-e39d-40f2-a066-d2436ba0415c
 # -- a lot of django isn't put in classes so this will be interesting ......
 
 ##///////////////////////////////////////////////////////////////////////////##
