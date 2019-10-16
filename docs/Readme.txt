@@ -7,7 +7,7 @@ Organization/Naming Scheme
 
 
 Version Control
-- This project will use the latest version of Django (V 2.2.5)
+- This project will use the latest version of Django (V 2.2.6)
 
 -In the event that a team member requires a different version of any software.
 	That team member will notify all other team members in telegram and everyone will update to that version
