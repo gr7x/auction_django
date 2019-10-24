@@ -1,0 +1,26 @@
+{% load static %}
+
+<!Doctype html>
+
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+
+		<form action = "{ url 'blog:comment' blog:id %}" method="post">
+			{% csrf_token %}
+			</br>	</br>	Name: 
+			<input type ="text" name= "auction_name" /></br>
+			Auction Type:
+			
+			<input type="checkbox" name="auction_type" value="v_auction_type"> </br>
+			</br>	Description: </br>
+			<textarea name="auction_description" rows="10" cols="80"></textarea>
+			</br>	</br>	Start Time: </br>
+			<input type ="datetime-local" name= "start_time" /></br>
+			</br>	End Time: </br>
+			<input type ="datetime-local" name= "end_time" /></br>
+			</br>	<button type="submit"> Submit</buttom>
+		</form>
+	</body>
