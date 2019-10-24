@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Auction, Item, Bid, User
-from .forms import DateForm
+#from .models import Auction, Item, Bid, User
+#from .forms import DateForm
 
 # Create your views here.
 
