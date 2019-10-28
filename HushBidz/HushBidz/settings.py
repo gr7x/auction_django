@@ -25,12 +25,13 @@ SECRET_KEY = 'nass-rhx^opei#064ij_+9r-l-*_&29(cd@m4d$vdi_@blt1jq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [u'*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'auction_app.apps.AuctionAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

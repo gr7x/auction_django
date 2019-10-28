@@ -11,15 +11,15 @@
       <!-- Probably a header here -->
       <main>
         <h2>Register</h2>
-        <form>
+        <form action="{% url 'auction_app:register' %}" method="post">
           Full name:</br >
-          <input type="text" /><br />
+          <input type="text" name="fullName" /><br />
           Email:</br>
-          <input type="email" /><br />
+          <input type="email" name="email" /><br />
           Password:</br>
-          <input type="password" /><br />
+          <input type="password" name="password" /><br />
           Confirm password:</br>
-          <input type="password" /><br />
+          <input type="password" name="passwordConfirm"/><br />
 
           <button type="submit">Register</button>
         </form>
