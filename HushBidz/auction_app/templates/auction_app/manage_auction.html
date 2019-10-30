@@ -8,18 +8,21 @@
   		</head>
   
 		<body>
-			<!--h1>Auction.name</h1-->
-			<!--h2>Auction.url</h2-->
-			<div>
-			<!--a href="{% url 'addItems' %}">Add Items</a-->
-			<!--a href="{% url 'liveAuction' %}">Begin Live Auction</a-->
-			<!--Export Results-->
-			</div>
+		
+			<main>
+			    {% for a in auctions %}
+				<h1>a.name</h1>
+			   	<!--h2>a.url</h2-->
+			   	<div>
+			       		 <!--a href="{% url 'addItems' %}">Add Items</a-->
+			   		 <!--a href="{% url 'liveAuction' %}">Begin Live Auction</a-->
+			  		  <!--Export Results-->
+			        </div>
 			
-			<div>  
-				<p id="timer"></p>
-				<script> 
-					var deadline = new Date("Jan 5, 2019 15:37:25").getTime(); 
+				<div>  
+				    <p id="timer"></p>
+				    <script> 
+					var deadline = a.end_time; 
 					var x = setInterval(function() { 
 						var now = new Date().getTime(); 
 						var t = deadline - now; 
@@ -32,14 +35,17 @@
 				    		if (t < 0) { 
  				       			clearInterval(x); 
 				        		document.getElementById("timer").innerHTML = "EXPIRED"; 
-				   	 	} 
-					}, 1000); 
-				</script> 
-			</div>	
-			
-			<main>
-				{% for i in items %}
-				<!-- Insert Items info here -->
+				   	 	    } 
+					    }, 1000); 
+					</script> 
+				    </div>	
+				    <div>
+					{% for i in a.items %}
+					    <h1>i.name</h1>
+					    <h2>i.price</h2>
+					    <!--add image, user#-->
+					{% endfor %}
+				    </div>
 				{% endfor %}
 			</main> 
 

@@ -20,6 +20,7 @@ class Auction(models.Model):
 #    auction_url=
 
 class Items(models.Model):
+    auction = models.ForeignKey(Auction, on_delete=models.CASCADE, related_name='items')
     name = models.CharField(max_length=256)  
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField(max_length=256)

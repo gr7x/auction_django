@@ -15,13 +15,14 @@ def index(request):
     context = {}
     return HttpResponse(template.render(context,request))
 
-def manage_auction(request):	
-    #auctions = Auction.objects.order_by('-pub_date')
-    #context = {
-    #    'auctions': auctions,
-    #    #deadline'now': time.strftime('%c'), 
-    #}
-    return render(request, 'auction_app/manage_auction.html')#, context)
+def manage_auction(request):
+    template = loader.get_template('auction_app/manage_auction.html')	
+    auctions = Auction.objects.order_by('-start_time')
+    context = {
+        'auctions': auctions,
+        #deadline'now': time.strftime('%c'), 
+    }
+    return render(request, 'auction_app/manage_auction.html', context)
 
 
 #def create_auction(request):
