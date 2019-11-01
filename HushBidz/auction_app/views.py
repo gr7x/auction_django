@@ -1,14 +1,24 @@
 from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
-#from .models import Auction, Item, Bid, User
+from .models import User
+# from .models import Auction, Item, Bid, User
 #from .forms import DateForm
 
 # Create your views here.
 def register(request):
     template = loader.get_template('auction_app/register.html')
     context = {}
-    return HttpResponse(template.render(context, request))
+    if request.method == 'Post':
+        # if request.Post.get('fullname') and request.Post.get('email') and request.Post.get('password')
+            post = Post()
+            post.fullname = request.Post.get('fullname')
+            post.email = request.Post.get('email')
+            post.password = request.Post.get('password')
+            post.save()
+            return HttpResponse(template.render(context, request))
+    else:
+        return HttpResponse(template.render(context, request))
 
 def index(request):
     template = loader.get_template('auction_app/index.html')
