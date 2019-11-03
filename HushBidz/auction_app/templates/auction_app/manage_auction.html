@@ -10,6 +10,9 @@
 		<body>
 		
 			<main>
+				
+			    {% if auctions %}
+				
 			    {% for a in auctions %}
 				<h1>a.name</h1>
 			   	<!--h2>a.url</h2-->
@@ -40,13 +43,26 @@
 					</script> 
 				    </div>	
 				    <div>
+					    
+					{% if a.items %}
+					    
 					{% for i in a.items %}
 					    <h1>i.name</h1>
 					    <h2>i.price</h2>
 					    <!--add image, user#-->
 					{% endfor %}
+					    
+					{% else %}
+      					<p> No Items to show</p>
+     					{% endif %}
+					    
 				    </div>
 				{% endfor %}
+				
+				{% else %}
+      				<p> No Auctions to show</p>
+     				{% endif %}
+				
 			</main> 
 
 		</body>
