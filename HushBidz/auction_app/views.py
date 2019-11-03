@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
-from .models import User
-# from .models import Auction, Item, Bid, User
+from .models import Auction, Item, User
 #from .forms import DateForm
 
 # Create your views here.
