@@ -3,8 +3,6 @@ from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from .models import Auction
-
-#from .models import Auction, Item, Bid, User
 #from .forms import DateForm
 
 # Create your views here.
@@ -33,9 +31,17 @@ def registerUser(request):
 @csrf_exempt
 def register(request):
     template = loader.get_template('auction_app/register.html')
-    context = { 'registerUser' : registerUser }
-    return HttpResponse(template.render(context,request))
-
+    context = {}
+    if request.method == 'Post':
+        # if request.Post.get('fullname') and request.Post.get('email') and request.Post.get('password')
+            post = Post()
+            post.fullname = request.Post.get('fullname')
+            post.email = request.Post.get('email')
+            post.password = request.Post.get('password')
+            post.save()
+            return HttpResponse(template.render(context, request))
+    else:
+        return HttpResponse(template.render(context, request))
 
 def index(request):
     template = loader.get_template('auction_app/index.html')
@@ -52,6 +58,6 @@ def manage_auction(request):
     return render(request, 'auction_app/manage_auction.html', context)
 
 
-#def create_auction(request):
-    #template = loader.get_template('setup_auction.html')
-#    return render(request,'setup_auction.html')
+def create_auction(request):
+    template = loader.get_template('setup_auction.html')
+    return render(request,'setup_auction.html')
