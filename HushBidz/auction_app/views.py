@@ -35,5 +35,4 @@ def manage_auction(request):
 
 
 def create_auction(request):
-    template = loader.get_template('setup_auction.html')
-    return render(request,'setup_auction.html')
+    return render(request,'auction_app/setup_auction.html')
