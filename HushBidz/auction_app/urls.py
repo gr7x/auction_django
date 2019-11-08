@@ -15,5 +15,6 @@ urlpatterns = [
       r'(?P<uidb64>[0-9A-Za-z_\-]+)/'
       r'(?P<token>[0-9A-Za-z]{1,13}'
       r'-[0-9A-Za-z]{1,20})/$',
-      views.activate_account, name='activate')
+      views.activate_account, name='activate'),
+    url(r'^liveAuction$', views.liveAuction, name='liveAuction')
 ]
