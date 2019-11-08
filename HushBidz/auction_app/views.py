@@ -1,47 +1,23 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 from .models import Auction
-#from .forms import DateForm
 
-# Create your views here.
-def registrationConfirmation(request):
-    template = loader.get_template('auction_app/registrationConfirmation.html')
-    context = {}
-    return HttpResponse(template.render(context,request))
-
-@csrf_exempt
-def registerUser(request):
-    Auction.numUsers += 1
-    fullName = request.POST.get('fullName',None),
-    userNum  = Auction.numUsers
-    Auction.users_set.create(fullName=fullName,
-            email=request.POST.get('email',None),
-            password=request.POST.get('password',None),
-            number=userNum)
-    template = loader.get_template('auction_app/registrationConfirmation.html')
-    context = { 'userName' : fullName,
-                'userNum'  : userNum }
-    return HttpResponseRedirect(template.render(context, request))
-
-
-
-
-@csrf_exempt
-def register(request):
-    template = loader.get_template('auction_app/register.html')
-    context = {}
-    if request.method == 'Post':
-        # if request.Post.get('fullname') and request.Post.get('email') and request.Post.get('password')
-            post = Post()
-            post.fullname = request.Post.get('fullname')
-            post.email = request.Post.get('email')
-            post.password = request.Post.get('password')
-            post.save()
-            return HttpResponse(template.render(context, request))
+def signup(request):
+    if request.user.is_authenticated:
+        return redirect('index')
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'Account created successfully')
+            return redirect('index')
     else:
-        return HttpResponse(template.render(context, request))
+        form = UserCreationForm()
+    return render(request, 'accounts/signup.html', {'form' : form})
 
 def index(request):
     template = loader.get_template('auction_app/index.html')
