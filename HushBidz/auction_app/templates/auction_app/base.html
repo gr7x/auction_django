@@ -6,11 +6,18 @@
   <body>
     <div class="page-header">
       <h1><a href="/auction_app/">Hu$hBidz</a></h1>
+      {% if user.is_authenticated %}
+        Logged in as {{ user.username }}
+      {% endif %}
     </div>
     <div class="navigation">
       <ul>
-        <li><a href="/auction_app/accounts/login">Login</a></li>
-        <li><a href="/auction_app/accounts/signup">Register</a></li>
+        {% if user.is_authenticated %}
+          <li><a href="/auction_app/accounts/logout">Log out</a></li>
+        {% else %}
+          <li><a href="/auction_app/accounts/login">Login</a></li>
+          <li><a href="/auction_app/accounts/signup">Register</a></li>
+        {% endif %}
       </ul>
     </div>
     <div class="content container">

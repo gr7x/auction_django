@@ -3,9 +3,9 @@ from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import logout
 from django.contrib import messages
 from .models import Auction
-from .forms import CreateUserForm
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -16,29 +16,18 @@ def signup(request):
         print('You\'re already authenticated???')
         return redirect('index')
     if request.method == 'POST':
-        form = CreateUserForm(request.POST)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save(request)
             messages.success(request,'Account created successfully')
             return redirect('index')
     else:
-        form = CreateUserForm()
+        form = UserCreationForm()
     return render(request, 'accounts/signup.html', {'form' : form})
 
-def activate_account(request, uidb64, token):
-    try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
-    if (user is not None and default_token_generator.check_token(user, token)):
-        user.is_active = True
-        user.save()
-        messages.add_message(request, messages.INFO, 'YEEHAW! Account activated. Please login.')
-    else: 
-        messages.add_message(request, messages.INFO, 'WELL I\'LL BE DARNED. Link Expired. Contact admin to activate your account.')
- 
-    return redirect('accounts/login')
+def logout_view(request):
+    logout(request)
+    return redirect('index')
 
 def index(request):
     template = loader.get_template('auction_app/index.html')
