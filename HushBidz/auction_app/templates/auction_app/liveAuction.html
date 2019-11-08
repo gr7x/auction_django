@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+	<html lang="en"> 
+		<head>     
+			<meta charset="utf-8">
+			<title>Hu$hBidz - Live Auction</title>
+  		</head>
+  
+		<body>
+      <!-- Probably a header here -->
+      <main>
+	{% if Auction %}
+				
+	  {% for a in Auction %}
+		<h1>a.name</h1>
+		<!--h2>a.url</h2-->
+		<div>
+		  <!--a href="{% url 'manage_auction' %}">Begin Live Auction</a-->
+		  <!--Export Results-->
+		</div>	
+		
+		<div>
+					    
+		{% if a.items %}
+					    
+		  {% for i in a.items %}
+			<h2>i.name</h2>
+       			 <form action = "{>
+
+          		  Winner:</br>
+          		  <input type="text" name="winner" /><br />
+
+          		  Price:</br>
+          		  $<input type="number" name="price" min="0.00" max="10000.00" step="0.01" /><br />
+          
+	  		  <button type="submit">Post</button>
+
+         		 </form>
+		  {% endfor %}
+					    
+		{% else %}
+      		  <p> No Items to show</p>
+     		{% endif %}
+					    
+	 </div>
+	{% endfor %}
+				
+	{% else %}
+      	<p> No Auctions to show</p>
+     	{% endif %}
+ 
+      </main>
+		</body>
+		</html>

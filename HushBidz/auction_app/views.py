@@ -59,4 +59,10 @@ def create_auction(request):
             return render(request, 'auction_app/add_items.html')
     else:
        return render(request, 'auction_app/setup_auction.html')
+
+def liveAuction(request):
+    template = loader.get_template('auction_app/liveAuction.html')
+    #if request.method == 'POST':
+
+    return render(request, 'auction_app/liveAuction.html') #, {'form' : form})
          
