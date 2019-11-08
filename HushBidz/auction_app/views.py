@@ -38,6 +38,10 @@ def manage_auction(request):
 def add_items(request):
     template = loader.get_template('auction_app/add_items.html')
     context = {}
+
+
+    
+
     return HttpResponse(template.render(context,request))
 
 
