@@ -5,19 +5,40 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .models import Auction
+from .forms import CreateUserForm
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.auth.models import User
 
 def signup(request):
     if request.user.is_authenticated:
+        print('You\'re already authenticated???')
         return redirect('index')
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CreateUserForm(request.POST)
         if form.is_valid():
-            form.save()
+            form.save(request)
             messages.success(request,'Account created successfully')
             return redirect('index')
     else:
-        form = UserCreationForm()
+        form = CreateUserForm()
     return render(request, 'accounts/signup.html', {'form' : form})
+
+def activate_account(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if (user is not None and default_token_generator.check_token(user, token)):
+        user.is_active = True
+        user.save()
+        messages.add_message(request, messages.INFO, 'YEEHAW! Account activated. Please login.')
+    else: 
+        messages.add_message(request, messages.INFO, 'WELL I\'LL BE DARNED. Link Expired. Contact admin to activate your account.')
+ 
+    return redirect('accounts/login')
 
 def index(request):
     template = loader.get_template('auction_app/index.html')

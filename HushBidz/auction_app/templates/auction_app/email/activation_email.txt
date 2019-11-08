@@ -1,0 +1,7 @@
+HOOOOOWWWWWWWDY {{ username }}
+
+PLEASE VISIT THIS ROOTIN' TOOTIN' LINK RIGHT HERE TO COMPLETE YOUR HUSHY-BIDZ ACCOUNT ACTIVATION
+{{ protocol }}://{{ domain }}{% url 'activate' uid token %}
+
+GOLLLLLLLLLY!
+
