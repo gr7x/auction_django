@@ -34,6 +34,29 @@ def manage_auction(request):
     return render(request, 'auction_app/manage_auction.html', context)
 
 
+
+def add_items(request):
+    template = loader.get_template('auction_app/add_items.html')
+    context = {}
+
+
+    
+
+    return HttpResponse(template.render(context,request))
+
+
 def create_auction(request):
-    template = loader.get_template('setup_auction.html')
-    return render(request,'setup_auction.html')
+    template = loader.get_template('auction_app/setup_auction.html')
+    context = {}
+    if request.method == 'Post':
+        if request.Post.get('auction_name') and request.Post.get('auction_type') and request.Post.get('start_Time') and request.Post.get('end_time'):
+            post = Post()
+            post.name = request.Post.get('auction_name')
+            post.auction_type = request.Post.get('auction_type')
+            post.start_time = request.Post.get('start_time')
+            post.end_time = request.Post.get('end_time')
+            post.save()
+            return render(request, 'auction_app/add_items.html')
+    else:
+       return render(request, 'auction_app/setup_auction.html')
+         
