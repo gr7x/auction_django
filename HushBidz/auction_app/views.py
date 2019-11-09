@@ -47,7 +47,12 @@ def manage_auction(request):
 def add_items(request):
     template = loader.get_template('auction_app/add_items.html')
     context = {}
-
+    if request.method == 'POST':
+        form = AddItemForm(request.POST)
+        if form.is_valid():
+            #form.cleaned_data[]
+            form.save(request)
+            return redirect('manage_auction')
 
     
 
