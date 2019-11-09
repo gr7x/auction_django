@@ -13,7 +13,6 @@ from django.contrib.auth.models import User
 
 def signup(request):
     if request.user.is_authenticated:
-        print('You\'re already authenticated???')
         return redirect('index')
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
