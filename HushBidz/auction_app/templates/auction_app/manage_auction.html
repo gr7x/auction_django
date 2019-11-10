@@ -1,15 +1,8 @@
-{% load static %}
+{% extends "auction_app/base.html" %}
 
-<!DOCTYPE html>
-	<html lang="en"> 
-		<head>     
-			<meta charset="utf-8">
-			<title>Hu$hBidz</title>
-  		</head>
-  
-		<body>
-		
-			<main>
+
+{% block content %}
+
 				
 			    {% if Auction %}
 				
@@ -63,7 +56,5 @@
       				<p> No Auctions to show</p>
      				{% endif %}
 				
-			</main> 
+	{% endblock %}
 
-		</body>
-		</html>

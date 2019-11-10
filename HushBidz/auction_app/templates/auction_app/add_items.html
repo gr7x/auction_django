@@ -13,16 +13,16 @@
         <h2>Add an item</h2>
         <form>
           Item name:</br>
-          <input type="text" /><br />
+          <input type="text" name="name" /><br />
 
           Item image:</br>
-          <button type="button">Upload image</button></br>
+          <button type="button" name="image">Upload image</button></br>
 
           Starting price:</br>
-          $<input type="number" min="0.00" max="10000.00" step="0.01" /><br />
+          $<input type="number" min="0.00" max="10000.00" step="0.01" name="price"/><br />
 
           Description:<br />
-          <textarea rows="10" cols="80"></textarea><br />
+          <textarea rows="10" cols="80" name="description"></textarea><br />
 
           <button type="submit">Post</button>
 
