@@ -19,5 +19,4 @@ class Items(models.Model):
     name = models.CharField(max_length=256)  
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField(max_length=256)
-    
-   # needs upload image added
+    image = models.ImageField(upload_to='item_image')
