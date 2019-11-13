@@ -50,10 +50,13 @@ def add_items(request):
     context = {}
     if request.method == 'POST':
         form = AddItemForm(request.POST)
+        print("hi")
         if form.is_valid():
+            print("oh")
+            item =form.save(commit=False)
             #form.cleaned_data[]
-           form.save(request)
-           return redirect('manage_auction')
+            item.save()#request)
+        return redirect('manage_auction')
     return render(request, 'auction_app/add_items.html', context)
 
 
@@ -64,9 +67,10 @@ def create_auction(request):
     if request.method == 'POST':
         form = AddAuctionForm(request.POST)
         if form.is_valid():
+            auction = form.save(commit=False)
             #form.cleaned_data[]
-            form.save(request)
-            return redirect('manage_auction')
+            form.save()#request)
+        return redirect('manage_auction')
 
     return HttpResponse(template.render(context,request))
 
