@@ -10,6 +10,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.models import User
+from .forms import AddItemForm, AddAuctionForm
 
 def signup(request):
     if request.user.is_authenticated:
@@ -51,28 +52,24 @@ def add_items(request):
         form = AddItemForm(request.POST)
         if form.is_valid():
             #form.cleaned_data[]
-            form.save(request)
-            return redirect('manage_auction')
+           form.save(request)
+           return redirect('manage_auction')
+    return render(request, 'auction_app/add_items.html', context)
 
-    
-
-    return HttpResponse(template.render(context,request))
 
 
 def create_auction(request):
     template = loader.get_template('auction_app/setup_auction.html')
     context = {}
-    if request.method == 'Post':
-        if request.Post.get('auction_name') and request.Post.get('auction_type') and request.Post.get('start_Time') and request.Post.get('end_time'):
-            post = Post()
-            post.name = request.Post.get('auction_name')
-            post.auction_type = request.Post.get('auction_type')
-            post.start_time = request.Post.get('start_time')
-            post.end_time = request.Post.get('end_time')
-            post.save()
-            return render(request, 'auction_app/add_items.html')
-    else:
-       return render(request, 'auction_app/setup_auction.html')
+    if request.method == 'POST':
+        form = AddAuctionForm(request.POST)
+        if form.is_valid():
+            #form.cleaned_data[]
+            form.save(request)
+            return redirect('manage_auction')
+
+    return HttpResponse(template.render(context,request))
+
 
 def liveAuction(request):
     template = loader.get_template('auction_app/liveAuction.html')

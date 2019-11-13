@@ -11,8 +11,10 @@
       <!-- Probably a header here -->
       <main>
         <h2>Add an item</h2>
-        <form>
+        <form method="post">
+          {% csrf_token %}
           Item name:</br>
+         
           <input type="text" name="name" /><br />
 
           Item image:</br>
