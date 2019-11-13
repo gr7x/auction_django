@@ -1,6 +1,6 @@
 from django import forms
 
-<<<<<<< HEAD
+
 
 
 
