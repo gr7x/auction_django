@@ -3,9 +3,14 @@
 
 
 {% block content %}
+	<h1>{{auction.name}}</h1>
+	<p>{{auction.description}}</p>
+<div>
         <h2>Add an item</h2>
-        <form method="post">
+        <form method="POST">
           {% csrf_token %}
+	  {{ form.as_p}}
+	  <input type="hidden" name="parent_id value="{{auction.id}}">
           Item name:</br>
          
           <input type="text" name="name" /><br />
@@ -22,4 +27,5 @@
           <button type="submit">Post</button>
 
         </form>
+</div>
  {% endblock %}

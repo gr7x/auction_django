@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import logout
 from django.contrib import messages
-from .models import Auction
+from .models import Auction, Items
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -34,29 +34,32 @@ def index(request):
     context = {}
     return HttpResponse(template.render(context,request))
 
-def manage_auction(request):
-    template = loader.get_template('auction_app/manage_auction.html')	
+def manage_auction(request):	
     auctions = Auction.objects.order_by('-start_time')
     context = {
         'auctions': auctions,
-        #deadline'now': time.strftime('%c'), 
     }
     return render(request, 'auction_app/manage_auction.html', context)
 
 
 
-def add_items(request):
-    template = loader.get_template('auction_app/add_items.html')
-    context = {}
+def add_items(request, pk):
     if request.method == 'POST':
         form = AddItemForm(request.POST)
         print("hi")
         if form.is_valid():
-            print("oh")
+            parent_id = int(request.POST.get('parent_id'))
             item =form.save(commit=False)
+            item.auction = Auctoin.objects.get(id=parent_id)
             #form.cleaned_data[]
             item.save()#request)
         return redirect('manage_auction')
+    else: 
+        form = AddItemForm()
+    auction = get_object_or_404(Auction, pk=pk)
+    context = {
+    'auction': auction,
+    }
     return render(request, 'auction_app/add_items.html', context)
 
 
@@ -76,7 +79,6 @@ def create_auction(request):
 
 
 def liveAuction(request):
-    template = loader.get_template('auction_app/liveAuction.html')
     #if request.method == 'POST':
 
     return render(request, 'auction_app/liveAuction.html') #, {'form' : form})
