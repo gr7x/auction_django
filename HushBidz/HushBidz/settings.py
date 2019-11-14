@@ -121,3 +121,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = 'index'
+
+LOGIN_URL = '/auction_app/accounts/login/'

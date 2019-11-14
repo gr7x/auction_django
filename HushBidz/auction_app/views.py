@@ -11,6 +11,8 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.models import User
 from .forms import AddItemForm, AddAuctionForm
+from django.contrib.auth.decorators import login_required
+
 
 def signup(request):
     if request.user.is_authenticated:
@@ -34,6 +36,7 @@ def index(request):
     context = {}
     return HttpResponse(template.render(context,request))
 
+@login_required()
 def manage_auction(request):	
     auctions = Auction.objects.order_by('-start_time')
     context = {
@@ -42,15 +45,14 @@ def manage_auction(request):
     return render(request, 'auction_app/manage_auction.html', context)
 
 
-
+@login_required()
 def add_items(request, pk):
     if request.method == 'POST':
         form = AddItemForm(request.POST)
-        print("hi")
         if form.is_valid():
             parent_id = int(request.POST.get('parent_id'))
             item =form.save(commit=False)
-            item.auction = Auctoin.objects.get(id=parent_id)
+            item.auction = Auction.objects.get(id=parent_id)
             #form.cleaned_data[]
             item.save()#request)
         return redirect('manage_auction')
@@ -63,7 +65,7 @@ def add_items(request, pk):
     return render(request, 'auction_app/add_items.html', context)
 
 
-
+@login_required()
 def create_auction(request):
     template = loader.get_template('auction_app/setup_auction.html')
     context = {}
@@ -77,7 +79,7 @@ def create_auction(request):
 
     return HttpResponse(template.render(context,request))
 
-
+@login_required()
 def liveAuction(request):
     #if request.method == 'POST':
 
