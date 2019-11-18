@@ -74,7 +74,7 @@ def create_auction(request):
         if form.is_valid():
             auction = form.save(commit=False)
             #form.cleaned_data[]
-            form.save()#request)
+            auction.save()#request)
         return redirect('manage_auction')
 
     return HttpResponse(template.render(context,request))
