@@ -15,7 +15,7 @@ class Auction(models.Model):
 #    auction_url=
 
     def __str__(self):
-        return f"({self.id}) {self.name} {self.description}"
+        return "({self.id}) {self.name} {self.description}"
 
 class Items(models.Model):
     auction = models.ForeignKey(Auction, on_delete=models.CASCADE, related_name='items')
