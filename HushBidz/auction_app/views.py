@@ -55,7 +55,9 @@ def add_items(request): #, pk):
             item.auction = Auction.objects.get(id=parent_id)
             #form.cleaned_data[]
             item.save()#request)
-        return redirect('manage_auction')
+            return redirect('manage_auction')
+        else: 
+            print(form.errors)
     else: 
         form = AddItemForm()
     auction = get_object_or_404(Auction) #, pk=pk)
@@ -76,7 +78,10 @@ def create_auction(request):
             #auction = form.save(commit=False)
             #form.cleaned_data[]
             #auction.save()#request)
-        return redirect('manage_auction')
+            return redirect('manage_auction')
+        else: 
+            print(form.errors)
+        
 
     return HttpResponse(template.render(context,request))
 
