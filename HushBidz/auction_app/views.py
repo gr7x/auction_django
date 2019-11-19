@@ -75,11 +75,11 @@ def create_auction(request):
         form = AddAuctionForm(request.POST)
         form.admin = request.user.username
         if form.is_valid():
+            #form.cleaned_data[]
             post = form.save(commit=False)
             post.admin=request.user.username
             post.save()
             form.save()
-            #form.cleaned_data[]
             return redirect('manage_auction')
         else: 
             print(form.errors)
