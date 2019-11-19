@@ -54,7 +54,7 @@ def add_items(request): #, pk):
             item =form.save(commit=False)
             item.auction = Auction.objects.get(id=parent_id)
             #form.cleaned_data[]
-            item.save()#request)
+            item.save()
             return redirect('manage_auction')
         else: 
             print(form.errors)
@@ -79,7 +79,6 @@ def create_auction(request):
             post = form.save(commit=False)
             post.admin=request.user.username
             post.save()
-            form.save()
             return redirect('manage_auction')
         else: 
             print(form.errors)
