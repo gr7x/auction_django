@@ -46,7 +46,7 @@ def manage_auction(request):
 
 
 @login_required()
-def add_items(request, pk):
+def add_items(request): #, pk):
     if request.method == 'POST':
         form = AddItemForm(request.POST)
         if form.is_valid():
@@ -58,7 +58,7 @@ def add_items(request, pk):
         return redirect('manage_auction')
     else: 
         form = AddItemForm()
-    auction = get_object_or_404(Auction, pk=pk)
+    auction = get_object_or_404(Auction) #, pk=pk)
     context = {
     'auction': auction,
     }
