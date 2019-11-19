@@ -19,10 +19,10 @@ class Auction(models.Model):
 
 class Items(models.Model):
     auction = models.ForeignKey(Auction, on_delete=models.CASCADE, related_name='items')
-    name = models.CharField(max_length=256, default='An Item')  
-    price = models.DecimalField(max_digits=6, decimal_places=2, default='00.00', null=True, blank=True)
-    description = models.TextField(max_length=256, default='item description', null=True, blank=True)
-    image = models.ImageField(upload_to='item_image', null=True, blank=True)
+    name = models.CharField('name', max_length=256, default='An Item')  
+    price = models.DecimalField('price', max_digits=6, decimal_places=2, default='00.00', null=True, blank=True)
+    description = models.TextField('description', max_length=256, default='item description', null=True, blank=True)
+    image = models.ImageField('image', upload_to='item_image', null=True, blank=True)
 
     def __str__(self):
         return '(' + str(self.auction.id) + ') ' + self.description
