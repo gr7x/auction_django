@@ -5,9 +5,9 @@ class User(models.Model):
 
 # Create your models here.
 class Auction(models.Model):
-    name = models.CharField(max_length=256, default='An Auction', null=True, blank=True)
-    auction_type = models.BooleanField(default=False, null=True, blank=True )
-    description = models.TextField(max_length=256, null=True, blank=True)
+    name = models.CharField('name', max_length=256, null=True, blank=True)
+    auction_type = models.BooleanField('auction_type', default = False, null=True, blank=True )
+    description = models.TextField('description', default = 'description', max_length=256, null=True, blank=True)
    # admin=models.ForeignKey(Something... , on_delete=models.CASCADE)
     start_time=models.DateTimeField('start_time', null=True, blank=True)
     end_time=models.DateTimeField('end_time', null=True, blank=True)

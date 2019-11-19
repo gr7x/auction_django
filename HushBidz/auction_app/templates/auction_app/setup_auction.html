@@ -7,15 +7,15 @@
 			{% csrf_token %}
 			{{ form.as_p}}
 			</br>	</br>	Name: 
-			<input type ="text" name= "auction_name" /></br>
-			Auction Type:
+			<input type ="text" name= "name" /></br>
+			Click for Live Auction:
 			
-			<input type="checkbox" name="auction_type" value="v_auction_type"> </br>
+			<input type="checkbox" name="auction_type"> </br>
 			</br>	Description: </br>
-			<textarea name="auction_description" rows="10" cols="80"></textarea>
-			</br>	</br>	Start Time: (yyyy/mm/dd hh:mm) </br>
+			<textarea name="description" rows="10" cols="80"></textarea>
+			</br>	</br>	Start Time: (ex: 2019-03-21 11:00:00) </br>
 			<input type ="datetime-local" name= "start_time" /></br>
-			</br>	End Time: (yyyy/mm/dd hh:mm) </br>
+			</br>	End Time: (ex: 2019-03-21 11:30:00) </br>
 			<input type ="datetime-local" name= "end_time" /></br>
 			</br>	<button type="submit"> Submit</buttom>
 		</form>
