@@ -7,7 +7,7 @@
 			   {%if auctions%}
 				
 			    {% for a in auctions %}
-				<h1>a.name</h1>
+				<h1>{{a.name}}</h1>
 			   	<!--h2>a.url</h2-->
 			   	<div>
 			       		 <!--a href="{% url 'add_items' %}">Add Items</a-->
@@ -18,7 +18,7 @@
 				<div>  
 				    <p id="timer"></p>
 				    <script> 
-					var deadline = a.end_time; 
+					var deadline = {{a.end_time}}; 
 					var x = setInterval(function() { 
 						var now = new Date().getTime(); 
 						var t = deadline - now; 
@@ -36,18 +36,18 @@
 					</script> 
 				    </div>	
 				    <div>
-					    
 					{% if a.items.all %}
 					    
 					{% for i in a.items.all %}
-					    <h1>i.name</h1>
-					    <h2>i.price</h2>
+					    <h1>{{i.name}}</h1>
+					    <h2>{{i.price}}</h2>
 					    <!--add image, user#-->
 					{% endfor %}
 					    
 					{% else %}
       					<p> No Items to show</p>
-     					{% endif %}
+     					{% endif %}    
+
 				      <a href="{% url 'add_items' pk=a.pk %}">Add Items</a>    
 				    </div>
 				{% endfor %}
@@ -55,8 +55,9 @@
 				{% else %}
       				<p> No Auctions to show</p>
 				
-				      <a href="{% url 'setup_auction' %}">Add Auctions</a> 
      				{% endif %}
+
+				      <a href="{% url 'setup_auction' %}">Add Auctions</a> 
 				
 	{% endblock %}
 

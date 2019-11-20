@@ -5,7 +5,7 @@
 	{% if auctions %}
 				
 	  {% for a in auctions %}
-		<h1>a.name</h1>
+		<h1>{{a.name}}</h1>
 		<!--h2>a.url</h2-->
 		<div>
 		  <!--a href="{% url 'manage_auction' %}">Begin Live Auction</a-->
@@ -17,7 +17,7 @@
 		{% if a.items %}
 					    
 		  {% for i in a.items.all %}
-			<h2>i.name</h2>
+			<h2>{{i.name}}</h2>
        			 <form action = "{>
 
           		  Winner:</br>
@@ -36,6 +36,7 @@
      		{% endif %}
 					    
 	 </div>
+
 	{% endfor %}
 				
 	{% else %}
