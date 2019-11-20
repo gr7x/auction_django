@@ -42,23 +42,30 @@ class AuctionTest(TestCase):
 class ItemTest(TestCase):
 
 # test models
-    def add_item(self, name="test", description="test", price=1, auction=Auction.objects.create(name='Foo', description='Bar', auction_type=1, start_time=timezone.now(), end_time=(timezone.now() + timezone.timedelta(hours=1)))):
+
+    a = Auction.objects.create(name='Foo', description='Bar', auction_type=1, start_time=timezone.now(), end_time=(timezone.now() + timezone.timedelta(hours=1)))
+    a.save()
+    def add_item(self, name="test", description="test", price=1, auction=a):
         return Items.objects.create(name=name, description=description, price=price, auction=auction)
 
     def test_item_creation(self):
         w = self.add_item()
-        self.assertTrue(isinstance(w, Item))
+        self.assertTrue(isinstance(w, Items))
         #self.assertEqual(w.__unicode__(), w.name)
 
 #test forms
     def test_valid_form(self):
-        w = Items.objects.create(name='Foo', description='Bar', price=1, auction=Auction.objects.create(name='Foo', description='Bar', auction_type=1, start_time=timezone.now(), end_time=(timezone.now() + timezone.timedelta(hours=1))))
+        a = Auction.objects.create(name='Foo', description='Bar', auction_type=1, start_time=timezone.now(), end_time=(timezone.now() + timezone.timedelta(hours=1)))
+        a.save()
+        w = Items.objects.create(name='Foo', description='Bar', price=1, auction=a)
         data = {'name': w.name, 'description': w.description, 'price': w.price, 'auction': w.auction}
         form = AddItemForm(data=data)
         self.assertTrue(form.is_valid())
 
     def test_invalid_form(self):
-        w = Items.objects.create(name='Foo', description='', price=-1, auction=0)
+        a = Auction.objects.create(name='Foo', description='Bar', auction_type=1, start_time=timezone.now(), end_time=(timezone.now() + timezone.timedelta(hours=1)))
+        a.save()
+        w = Items.objects.create(name='Foo', description='', price=-1, auction=a)
         data = {'name': w.name, 'description': w.description, 'price': w.price, 'auction': w.auction}
         form = AddItemForm(data=data)
         self.assertFalse(form.is_valid())
