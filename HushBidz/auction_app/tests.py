@@ -1,8 +1,8 @@
 from django.test import TestCase
-from .models import Auction
+from .models import Auction, Items
 from django.utils import timezone
 #from django.core.urlresolvers import reverse
-from .forms import AddAuctionForm
+from .forms import AddAuctionForm, AddItemForm
 
 # Create your tests here.
 
@@ -12,7 +12,7 @@ class AuctionTest(TestCase):
     def create_auction(self, name="test", description="test", auction_type=1, start_time=timezone.now(), end_time=(timezone.now() + timezone.timedelta(hours=1))):
         return Auction.objects.create(name=name, description=description, auction_type=auction_type, start_time=start_time, end_time=end_time)
 
-    def test_whatever_creation(self):
+    def test_auction_creation(self):
         w = self.create_auction()
         self.assertTrue(isinstance(w, Auction))
         #self.assertEqual(w.__unicode__(), w.name)
@@ -38,3 +38,27 @@ class AuctionTest(TestCase):
 
 #        self.assertEqual(resp.status_code, 200)
 #        self.assertIn(w.name, resp.content)
+
+class ItemTest(TestCase):
+
+# test models
+    def add_item(self, name="test", description="test", price=1, auction=Auction.objects.create(name='Foo', description='Bar', auction_type=1, start_time=timezone.now(), end_time=(timezone.now() + timezone.timedelta(hours=1)))):
+        return Items.objects.create(name=name, description=description, price=price, auction=auction)
+
+    def test_item_creation(self):
+        w = self.add_item()
+        self.assertTrue(isinstance(w, Item))
+        #self.assertEqual(w.__unicode__(), w.name)
+
+#test forms
+    def test_valid_form(self):
+        w = Items.objects.create(name='Foo', description='Bar', price=1, auction=Auction.objects.create(name='Foo', description='Bar', auction_type=1, start_time=timezone.now(), end_time=(timezone.now() + timezone.timedelta(hours=1))))
+        data = {'name': w.name, 'description': w.description, 'price': w.price, 'auction': w.auction}
+        form = AddItemForm(data=data)
+        self.assertTrue(form.is_valid())
+
+    def test_invalid_form(self):
+        w = Items.objects.create(name='Foo', description='', price=-1, auction=0)
+        data = {'name': w.name, 'description': w.description, 'price': w.price, 'auction': w.auction}
+        form = AddItemForm(data=data)
+        self.assertFalse(form.is_valid())
