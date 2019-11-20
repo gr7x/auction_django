@@ -2,9 +2,9 @@
 
 
 {% block content %}
-	{% if Auction %}
+	{% if auctions %}
 				
-	  {% for a in Auction %}
+	  {% for a in auctions %}
 		<h1>a.name</h1>
 		<!--h2>a.url</h2-->
 		<div>
@@ -16,7 +16,7 @@
 					    
 		{% if a.items %}
 					    
-		  {% for i in a.items %}
+		  {% for i in a.items.all %}
 			<h2>i.name</h2>
        			 <form action = "{>
 

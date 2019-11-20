@@ -38,7 +38,7 @@ def index(request):
 
 @login_required()
 def manage_auction(request):	
-    auctions = Auction.objects.order_by('-start_time')
+    auctions = Auction.objects.all()
     context = {
         'auctions': auctions,
     }
@@ -89,6 +89,7 @@ def create_auction(request):
 @login_required()
 def liveAuction(request):
     #if request.method == 'POST':
+    auctions = Auction.objects.all()
 
-    return render(request, 'auction_app/liveAuction.html') #, {'form' : form})
+    return render(request, 'auction_app/liveAuction.html', {'auctions' : auctions}) #'form' : form, 
          
