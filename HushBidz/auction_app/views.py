@@ -150,4 +150,16 @@ def view_auction(request, pk):
     'auction': auction,
     'items': items,
     }
-    return render(request, 'auction_app/view_auction.html', context)         
+    return render(request, 'auction_app/view_auction.html', context)     
+
+
+@login_required()
+def user_page(request, pk):
+    auction = get_object_or_404(Auction, pk=pk)
+    items = auction.items.all()
+    usr = request.user.username 
+    context = {
+    'auction': auction,
+    'items': items,
+    }
+    return render(request, 'auction_app/user_page.html', context)      

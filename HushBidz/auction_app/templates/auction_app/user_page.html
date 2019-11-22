@@ -1,0 +1,27 @@
+{% extends "auction_app/base.html" %}
+
+
+{% block content %}
+			
+{%if auctions%}
+<div>
+<h1> You are currently winning the following items</h1>
+</div>			
+{% for a in auctions %}
+   <div>
+   <h1>a  {{a.name}}</h1>
+   <h2>{{a.description}}</h2>
+   <h2>{{a.start_time}}</h2>
+   <h2>{{a.end_time}}</h2>
+  </div>
+  <div>
+  <a href="{% url 'add_items' pk=a.pk %}">Add Items</a> 
+{% endfor %}
+ </div> 
+ <div>
+ {% else %}
+<p> User is not participating in any auctions</p>
+{% endif %}
+ </div>
+{% endblock %}
+
