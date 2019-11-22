@@ -122,6 +122,25 @@ def view_item(request, pk, id):
             'item': item
     }
     return render(request, 'auction_app/view_item.html', context)
+
+@login_required()
+def place_bid(request, pk, id): 
+    if request.method == 'POST':
+       # form = AddItemForm(request.POST)
+        #if form.is_valid():
+        itemx = get_object_or_404(Items, id=id)
+        item=Items.objects.get(name=request.Post['item_name'])  ## replace with id
+        item.highest_bidder = request.user.username
+        item.price = request.POST['price']
+        #form.cleaned_data[]
+        item.save()
+        return redirect('auction_page')
+    else: 
+        print(form.errors)
+    return render(request, 'auction_app/auction_page.html', context)
+
+
+
  
 @login_required()
 def view_auction(request, pk):
