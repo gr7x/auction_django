@@ -47,20 +47,21 @@ def manage_auction(request):
 
 @login_required()
 def add_items(request, pk):
+
+    auction = get_object_or_404(Auction, pk=pk)
     if request.method == 'POST':
         form = AddItemForm(request.POST)
         if form.is_valid():
-            parent_id = int(request.POST.get('parent_id'))
+            #parent_id = int(request.POST.get('parent_id'))
             item = form.save(commit=False)
-            item.auction = Auction.objects.get(id=parent_id)
+            item.auction = auction#Auction.objects.get(id=parent_id)
             #form.cleaned_data[]
             item.save()
-            return redirect('add_items', pk=parent_id)
+            return redirect('add_items', pk=auction.pk)#parent_id)
         else: 
             print(form.errors)
     else: 
         form = AddItemForm()
-    auction = get_object_or_404(Auction, pk=pk)
     items = auction.items.all()
     context = {
     'auction': auction,

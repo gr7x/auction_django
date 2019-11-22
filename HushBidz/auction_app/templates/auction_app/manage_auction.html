@@ -11,9 +11,7 @@
 			   	<h2>{{a.description}}</h2>
 			   	<h2>{{a.start_time}}</h2>
 			   	<h2>{{a.end_time}}</h2>
-	
-
-				      <a href="{% url 'add_items' pk=a.pk %}">Add Items</a> 
+				<a href="{% url 'add_items' pk=a.pk %}">Add Items</a> 
 				{% endfor %}
 				
 				{% else %}

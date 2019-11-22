@@ -10,7 +10,7 @@
         <form method="POST">
           {% csrf_token %}
 	  {{ form.as_p}}
-	  <input type="hidden" name="parent_id value="{{auction.id}}">
+	  <input type="hidden" name="parent_id value="{{ auction.id }}">
           <!--Item name:</br-->
          
           <!--input type="text" name="name" /><br /-->
@@ -34,7 +34,7 @@
 					{% for i in items %}
 					    <h1>{{i.name}}</h1>
 					    <h2>{{i.price}}</h2>
-					    <!--add image, user#-->
+					    <img src="{{i.image}}" alt="Item Image">
 					{% endfor %}
 					    
 					{% else %}
