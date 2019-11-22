@@ -16,6 +16,7 @@
       <ul>
         {% if user.is_authenticated %}
           <li><a href="/auction_app/accounts/logout">Log out</a></li>
+          <li><a href="{% url 'manage_auction' %}">Manage Auctions</a></li>
         {% else %}
           <li><a href="/auction_app/accounts/login">Login</a></li>
           <li><a href="/auction_app/accounts/signup">Register</a></li>

@@ -32,8 +32,11 @@ def logout_view(request):
     return redirect('index')
 
 def index(request):
+    auctions = Auction.objects.all()
+    context = {
+        'auctions': auctions,
+    }
     template = loader.get_template('auction_app/index.html')
-    context = {}
     return HttpResponse(template.render(context,request))
 
 @login_required()
@@ -108,4 +111,14 @@ def liveAuction(request):
     auctions = Auction.objects.all()
 
     return render(request, 'auction_app/liveAuction.html', {'auctions' : auctions}) #'form' : form, 
-         
+
+
+@login_required()
+def view_auction(request, pk):
+    auction = get_object_or_404(Auction, pk=pk)
+    items = auction.items.all()
+    context = {
+    'auction': auction,
+    'items': items,
+    }
+    return render(request, 'auction_app/view_auction.html', context)         

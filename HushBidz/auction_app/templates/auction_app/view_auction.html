@@ -1,0 +1,25 @@
+    
+{% extends "auction_app/base.html" %}
+
+
+{% block content %}
+	<h1>{{auction.name}}</h1>
+	<p>{{auction.description}}</p>
+
+
+				    <div>
+					{% if items %}
+					    
+					{% for i in items %}
+					    <h1>{{i.name}}</h1>
+					    <h2>{{i.price}}</h2>
+					    <img src="{{i.image}}" alt="Item Image">
+					{% endfor %}
+					    
+					{% else %}
+      					<p> No Items to show</p>
+     					{% endif %}    
+   
+				    </div>
+
+ {% endblock %}
