@@ -10,7 +10,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.models import User
-from .forms import AddItemForm, AddAuctionForm
+from .forms import AddItemForm, AddAuctionForm, PostForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -51,18 +51,21 @@ def add_items(request, pk):
         form = AddItemForm(request.POST)
         if form.is_valid():
             parent_id = int(request.POST.get('parent_id'))
-            item =form.save(commit=False)
+            item = form.save(commit=False)
             item.auction = Auction.objects.get(id=parent_id)
             #form.cleaned_data[]
             item.save()
-            return redirect('manage_auction')
+            return redirect('add_items', pk=parent_id)
         else: 
             print(form.errors)
     else: 
         form = AddItemForm()
     auction = get_object_or_404(Auction, pk=pk)
+    items = auction.items.all()
     context = {
     'auction': auction,
+    'items': items,
+    'form': form,
     }
     return render(request, 'auction_app/add_items.html', context)
 
@@ -70,7 +73,7 @@ def add_items(request, pk):
 @login_required()
 def create_auction(request):
     template = loader.get_template('auction_app/setup_auction.html')
-    context = {}
+    #contest = {}
     if request.method == 'POST':
         form = AddAuctionForm(request.POST)
         form.admin = request.user.username
@@ -82,13 +85,25 @@ def create_auction(request):
             return redirect('manage_auction')
         else: 
             print(form.errors)
-        
-
+    else:
+        form = AddAuctionForm()
+    context = {
+        'form': form
+    }       
     return HttpResponse(template.render(context,request))
 
 @login_required()
 def liveAuction(request):
-    #if request.method == 'POST':
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            #parent_id = int(request.POST.get('parent_id'))
+            item = form.save(commit=False)
+            #item.blog = Blog.objects.get(id=parent_id)
+            item.save()
+            return redirect('liveAuction')
+    else:
+        form = PostForm()
     auctions = Auction.objects.all()
 
     return render(request, 'auction_app/liveAuction.html', {'auctions' : auctions}) #'form' : form, 

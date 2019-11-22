@@ -8,7 +8,7 @@
 				
 			    {% for a in auctions %}
 				<h1>{{a.name}}</h1>
-			   	<!--h2>a.url</h2-->
+			   	<h2>{{a.description}}</h2>
 			   	<div>
 			       		 <!--a href="{% url 'add_items' %}">Add Items</a-->
 			   		 <!--a href="{% url 'liveAuction' %}">Begin Live Auction</a-->
@@ -35,21 +35,8 @@
 					    }, 1000); 
 					</script> 
 				    </div>	
-				    <div>
-					{% if a.items.all %}
-					    
-					{% for i in a.items.all %}
-					    <h1>{{i.name}}</h1>
-					    <h2>{{i.price}}</h2>
-					    <!--add image, user#-->
-					{% endfor %}
-					    
-					{% else %}
-      					<p> No Items to show</p>
-     					{% endif %}    
 
-				      <a href="{% url 'add_items' pk=a.pk %}">Add Items</a>    
-				    </div>
+				      <!--a href="{% url 'add_items' pk=a.pk %}">Add Items</a--> 
 				{% endfor %}
 				
 				{% else %}

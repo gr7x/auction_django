@@ -18,13 +18,22 @@
 					    
 		  {% for i in a.items.all %}
 			<h2>{{i.name}}</h2>
-       			 <form action = "{>
+       			 <form method="POST">
+                          {% csrf_token %}
+	                  {{ form.as_p}}
 
-          		  Winner:</br>
-          		  <input type="text" name="winner" /><br />
+	  <input type="hidden" name="parent_id value="{{i.auction}}">
 
-          		  Price:</br>
-          		  $<input type="number" name="price" min="0.00" max="10000.00" step="0.01" /><br />
+	  <input type="hidden" name="name value="{{i.name}}">
+
+	  <input type="hidden" name="description value="{{i.description}}">
+
+	  <input type="hidden" name="image value="{{i.image}}">
+          		  <!--Winner:</br-->
+          		  <!--input type="text" name="highest_bidder" /><br /-->
+
+          		  <!--Price:</br-->
+          		  <!--$<input type="number" name="price" min="0.00" max="10000.00" step="0.01" /><br /-->
           
 	  		  <button type="submit">Post</button>
 

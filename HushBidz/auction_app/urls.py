@@ -9,8 +9,8 @@ urlpatterns = [
     url(r'^accounts/signup/$', views.signup, name='signup'),
     path('accounts/login/', authViews.LoginView.as_view(), name='login'),
     path('accounts/logout/', views.logout_view, name='logout'),
-    url(r'^create_auction$', views.create_auction, name='setup_auction'),
-    url(r'^manage_auction$', views.manage_auction, name='manage_auction'),
-    url(r'^add_items$', views.add_items, name='add_items'),
+    path('create_auction', views.create_auction, name='setup_auction'),
+    path('manage_auction', views.manage_auction, name='manage_auction'),
+    path('add_items/<int:pk>/', views.add_items, name='add_items'),
     url(r'^liveAuction$', views.liveAuction, name='liveAuction')
 ]
