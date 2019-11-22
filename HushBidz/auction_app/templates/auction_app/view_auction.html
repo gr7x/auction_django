@@ -11,9 +11,9 @@
 					{% if items %}
 					    
 					{% for i in items %}
-					    <h1>{{i.name}}</h1>
+          <h1><a href="{% url 'view_item' pk=auction.pk id=i.id %}">{{i.name}}</a></h1>
 					    <h2>{{i.price}}</h2>
-					    <img src="{{i.image}}" alt="Item Image">
+					    <img src="{{i.image}}" alt="Item Image"/>
 					{% endfor %}
 					    
 					{% else %}

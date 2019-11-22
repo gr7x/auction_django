@@ -112,7 +112,17 @@ def liveAuction(request):
 
     return render(request, 'auction_app/liveAuction.html', {'auctions' : auctions}) #'form' : form, 
 
-
+@login_required()
+def view_item(request, pk, id):
+    auction = get_object_or_404(Auction, pk=pk)
+    items   = auction.items.all()
+    print(items)
+    item = get_object_or_404(Items, id=id)
+    context = {
+            'item': item
+    }
+    return render(request, 'auction_app/view_item.html', context)
+ 
 @login_required()
 def view_auction(request, pk):
     auction = get_object_or_404(Auction, pk=pk)

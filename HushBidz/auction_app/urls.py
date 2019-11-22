@@ -13,5 +13,6 @@ urlpatterns = [
     path('manage_auction', views.manage_auction, name='manage_auction'),
     path('add_items/<pk>/', views.add_items, name='add_items'),
     path('view_auction/<pk>/', views.view_auction, name='view_auction'),
+    path('view_item/<pk>/<id>/', views.view_item, name='view_item'),
     url(r'^liveAuction$', views.liveAuction, name='liveAuction')
 ]
