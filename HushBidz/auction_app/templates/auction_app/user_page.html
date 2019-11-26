@@ -1,32 +1,42 @@
 <style>
 .box{
-
 	border: 2px solid black;
         float: left;
-	width: 350px;
+	width: 500px;
         margin: 10px;
         box-shadow: 3px 4px;
-        border-radius: 25px;
-        
+        border-radius: 25px; 
+        background-color: aqua;       
 }
 .mid{
-	padding: 10px;
-        top: 0px;
+	padding: 12px;
         
- 	  
+        top: 0px; 	  
 }
 .im-right{
 	float: right;
         width: 100px;
-
 }
 .box-sub{
   border: 1px solid black;
   float: left;
   margin: 0px;
   border-radius: 25px;
-
+  background-color: white;
+  width:330px;
 }
+.div-box{
+ 
+}
+.left{float:left;
+      margin-right:5px;}
+.right{float:right}
+
+.clear{
+  clear: right;
+ 
+
+	}
 </style>
 
 {% extends "auction_app/base.html" %}
@@ -34,45 +44,51 @@
 
 {% block content %}
 <div>
-<h4>Total Current Price: ${{tot_price}}</h4>
+  <h4>Total Cost: ${{tot_price|floatformat:2}}</h4>
 </div>
 			
 {%if items%}
 <div>
-<h1> You are currently winning the following items</h1>
+  <h1> You are currently winning the following items</h1>
 </div>	
 
-    <div>		
+<div class="div-box">		
 {% for i in items %}
-  <div class ="box">
-  <div class="box-sub">
+  
+  <div class ="box div-box">
+    <div class="box-sub">
   	<div class="mid">
-   		<h4>Item Name: {{i.name}}</h4>
+   	  <h4>Product: {{i.name}}</h4>
    	</div>
     	<hr/>
    	<div class = "mid">
-   		<h5>Price: {{i.price}}</h5>
-   		<h5>Description: {{i.description}}</h5>
-   		<h5>Highest Bidder: {{i.highest_bidder}}</h5>
-                <h5>Auction Ends: Already ended?{{a.end_time}}</h5>
+         <!--
+   	 <span ><h5 class="left clear">Price:  </h5><h6 class="right clear">{{i.price|floatformat:2}}</h6></span>
+   	  <span class="clear"><h5 class="left">Description: </h5><h6 class="right"> {{i.description}}</h6></span>
+          <span class="clear"><h5 class="left">Auction Ends:</h5><h6 class="right">{{a.end_time}}</h6></span>
+         
+         --> 	
+          <h5>Price:  {{i.price|floatformat:2}}</h5>
+          <h5>Description: {{i.description}}</h5>	
+          <h5>Auction Ends:</h5>
         </div>
-   		
-   </div>
-
-   <div class="im-right">
-   <h5>Image:</h5> <img src="{{i.image}}" alt="Item Image">
-   </div>
-                
-   </div>
-   
-  <div>
+    </div>
+    <div class="im-right">
+     <h5>Image:</h5> <img src="{{i.image}}" alt="{{i.name}}">
+    </div>            
+  </div>   
+ 
 {% endfor %}
- </div> 
- <div>
+</div> 
+
  {% else %}
-<h1> User is not participating in any auctions</h1>
+
+<div>
+  <h1> User is not participating in any auctions</h1>
+</div>
+
 {% endif %}
- </div>
+
 {% endblock %}
 
 
