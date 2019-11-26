@@ -109,7 +109,7 @@ def create_auction(request):
 @login_required()
 def liveAuction(request):
     if request.method == "POST":
-        form = LivePostForm(request.POST)
+        form = LivePostForm(request.POST or None, instance=instance)
         if form.is_valid():
             #parent_id = int(request.POST.get('parent_id'))
             item = form.save(commit=False)
@@ -127,6 +127,8 @@ def view_item(request, pk, id):
     instance = get_object_or_404(Items, id=id)
     form = PostForm(request.POST or None, instance=instance)
     if form.is_valid():
+        item = form.save(commit=False)
+        item.highest_bidder = request.user.username
         form.save()
         return redirect('view_item', pk=pk, id=id)
     auction = get_object_or_404(Auction, pk=pk)
