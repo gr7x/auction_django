@@ -4,4 +4,13 @@
 <h1>{{item.name}}</h1>
 <h2>{{item.price}}</h2>
 <p>{{item.description}}</p>
+<!p>Current High Bidder: {{item.highest_bidder}}</p>
+<div>
+<h1>Bid on this item</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Update">
+</form>
+</div>
 {% endblock %}

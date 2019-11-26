@@ -26,13 +26,21 @@ class AddItemForm(forms.ModelForm):
             'image': forms.FileInput(attrs={'required': False}),
         }
 
+
+
+
 class PostForm(forms.ModelForm):
 
     class Meta:
         model = Items
-        fields = ('highest_bidder', 'price')
+        fields = ('price',)
+
+
+class LivePostForm(forms.ModelForm):
+   class Meta:
+        model = Items
+        fields = ('highest_bidder', 'price',)
         widgets = {
             'highest_bidder': forms.TextInput(attrs={'required': True}),
             'price': forms.TextInput(attrs={'required': True}),
-
         }
