@@ -14,6 +14,6 @@ urlpatterns = [
     path('add_items/<pk>/', views.add_items, name='add_items'),
     path('view_auction/<pk>/', views.view_auction, name='view_auction'),
     path('view_item/<pk>/<id>/', views.view_item, name='view_item'),
-    path('user_page/<pk>', views.user_page, name='user_page'),
+    path('user_page/', views.user_page, name='user_page'),
     url(r'^liveAuction$', views.liveAuction, name='liveAuction')
 ]

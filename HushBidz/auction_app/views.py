@@ -12,6 +12,8 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.models import User
 from .forms import AddItemForm, AddAuctionForm, PostForm
 from django.contrib.auth.decorators import login_required
+from itertools import chain
+from django.db.models import Sum
 
 
 def signup(request):
@@ -66,6 +68,7 @@ def add_items(request, pk):
     else: 
         form = AddItemForm()
     items = auction.items.all()
+    print(items)
     context = {
     'auction': auction,
     'items': items,
@@ -116,7 +119,6 @@ def liveAuction(request):
 def view_item(request, pk, id):
     auction = get_object_or_404(Auction, pk=pk)
     items   = auction.items.all()
-    print(items)
     item = get_object_or_404(Items, id=id)
     context = {
             'item': item
@@ -154,12 +156,24 @@ def view_auction(request, pk):
 
 
 @login_required()
-def user_page(request, pk):
-    auction = get_object_or_404(Auction, pk=pk)
-    items = auction.items.all()
+def user_page(request):
     usr = request.user.username 
+    act =  Auction.objects.all().values_list('id', flat=True)
+    items = []
+    p = 0.00
+    for id in act:
+        auction = get_object_or_404(Auction, pk=id)
+        it  = auction.items.all().filter(highest_bidder=usr)
+        pr = auction.items.all().filter(highest_bidder=usr).aggregate(Sum('price'))      
+        if it is not None:
+            items = items + list(chain(it))
+        if pr['price__sum'] is not None:
+           # print(type(float((pr['price__sum']))))
+            p = p + float(pr['price__sum'])
+    print(p)
     context = {
-    'auction': auction,
+    'tot_price': p,
+    'auctions': auction,
     'items': items,
     }
     return render(request, 'auction_app/user_page.html', context)      

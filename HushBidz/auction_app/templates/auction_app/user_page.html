@@ -1,27 +1,78 @@
+<style>
+.box{
+
+	border: 2px solid black;
+        float: left;
+	width: 350px;
+        margin: 10px;
+        box-shadow: 3px 4px;
+        border-radius: 25px;
+        
+}
+.mid{
+	padding: 10px;
+        top: 0px;
+        
+ 	  
+}
+.im-right{
+	float: right;
+        width: 100px;
+
+}
+.box-sub{
+  border: 1px solid black;
+  float: left;
+  margin: 0px;
+  border-radius: 25px;
+
+}
+</style>
+
 {% extends "auction_app/base.html" %}
 
 
 {% block content %}
+<div>
+<h4>Total Current Price: ${{tot_price}}</h4>
+</div>
 			
-{%if auctions%}
+{%if items%}
 <div>
 <h1> You are currently winning the following items</h1>
-</div>			
-{% for a in auctions %}
-   <div>
-   <h1>a  {{a.name}}</h1>
-   <h2>{{a.description}}</h2>
-   <h2>{{a.start_time}}</h2>
-   <h2>{{a.end_time}}</h2>
-  </div>
+</div>	
+
+    <div>		
+{% for i in items %}
+  <div class ="box">
+  <div class="box-sub">
+  	<div class="mid">
+   		<h4>Item Name: {{i.name}}</h4>
+   	</div>
+    	<hr/>
+   	<div class = "mid">
+   		<h5>Price: {{i.price}}</h5>
+   		<h5>Description: {{i.description}}</h5>
+   		<h5>Highest Bidder: {{i.highest_bidder}}</h5>
+                <h5>Auction Ends: Already ended?{{a.end_time}}</h5>
+        </div>
+   		
+   </div>
+
+   <div class="im-right">
+   <h5>Image:</h5> <img src="{{i.image}}" alt="Item Image">
+   </div>
+                
+   </div>
+   
   <div>
-  <a href="{% url 'add_items' pk=a.pk %}">Add Items</a> 
 {% endfor %}
  </div> 
  <div>
  {% else %}
-<p> User is not participating in any auctions</p>
+<h1> User is not participating in any auctions</h1>
 {% endif %}
  </div>
 {% endblock %}
+
 
