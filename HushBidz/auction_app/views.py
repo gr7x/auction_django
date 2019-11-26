@@ -12,7 +12,17 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.models import User
 from .forms import AddItemForm, AddAuctionForm, PostForm
 from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import UpdateView
 
+class ItemUpdate(UpdateView):
+    model = Items
+    fields = ['highest_bidder', 'price']
+    template_name_suffix = 'view_item'
+
+class LiveItemUpdate(UpdateView):
+    model = Items
+    fields = ['highest_bidder', 'price']
+    template_name_suffix = 'live_auction'
 
 def signup(request):
     if request.user.is_authenticated:
@@ -99,7 +109,7 @@ def create_auction(request):
 @login_required()
 def liveAuction(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = LivePostForm(request.POST)
         if form.is_valid():
             #parent_id = int(request.POST.get('parent_id'))
             item = form.save(commit=False)
@@ -114,12 +124,18 @@ def liveAuction(request):
 
 @login_required()
 def view_item(request, pk, id):
+    instance = get_object_or_404(Items, id=id)
+    form = PostForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return redirect('view_item', pk=pk, id=id)
     auction = get_object_or_404(Auction, pk=pk)
     items   = auction.items.all()
     print(items)
     item = get_object_or_404(Items, id=id)
     context = {
-            'item': item
+            'item': item,
+            'form': form
     }
     return render(request, 'auction_app/view_item.html', context)
 
