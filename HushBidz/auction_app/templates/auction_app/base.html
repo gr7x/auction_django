@@ -9,7 +9,7 @@
         <img src="{% static 'auction_app/HushBidzLogo.png'%}" width="200px" alt="sshhhhhhhh"/>
       </a>
       {% if user.is_authenticated %}
-        Logged in as {{ user.username }}
+        Logged in as <a href="{% url 'user_page' %}" style ="text-decoration: none">{{ user.username }}</a>
       {% endif %}
     </div>
     <div class="navigation">
