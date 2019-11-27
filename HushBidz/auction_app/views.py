@@ -15,6 +15,8 @@ from django.contrib.auth.decorators import login_required
 from itertools import chain
 from django.db.models import Sum
 from django.views.generic.edit import UpdateView
+from datetime import datetime, timezone
+
 
 
 class ItemUpdate(UpdateView):
@@ -130,7 +132,7 @@ def liveAuction(request):
 def view_item(request, pk, id):
     instance = get_object_or_404(Items, id=id)
     form = PostForm(request.POST or None, instance=instance)
-    if form.is_valid():
+    if form.is_valid() and ValidTime(request, pk, id):
         item = form.save(commit=False)
         item.highest_bidder = request.user.username
         form.save()
@@ -143,6 +145,16 @@ def view_item(request, pk, id):
             'form': form
     }
     return render(request, 'auction_app/view_item.html', context)
+
+@login_required
+def ValidTime(request, pk, id):
+    auction = get_object_or_404(Auction, pk=id) 
+    if getattr(auction, 'end_time') > datetime.now(timezone.utc) and getattr(auction, 'start_time') < datetime.now(timezone.utc):
+        return True
+    else: 
+        return False
+
+
 
 @login_required()
 def place_bid(request, pk, id): 
