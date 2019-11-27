@@ -9,7 +9,18 @@
         background-color: aqua;       
 }
 .mid{
-	padding: 12px;
+	padding-right: 12px;
+        padding-left: 12px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        
+        top: 0px; 	  
+}
+.bottom-box{
+	padding-right: 12px;
+        padding-left: 20px;
+        padding-top: 5px;
+        padding-bottom: 10px;
         
         top: 0px; 	  
 }
@@ -34,23 +45,26 @@
 
 .clear{
   clear: right;
- 
-
 	}
+
+.lil-left{
+  margin-left:5px;
+}
 </style>
 
 {% extends "auction_app/base.html" %}
 
 
 {% block content %}
-<div>
-  <h4>Total Cost: ${{tot_price|floatformat:2}}</h4>
-</div>
+
 			
 {%if items%}
 <div>
   <h1> You are currently winning the following items</h1>
 </div>	
+<div>
+  <h3 class="lil-left">Total Cost: ${{tot_price|floatformat:2}}</h3>
+</div>
 
 <div class="div-box">		
 {% for i in items %}
@@ -58,19 +72,22 @@
   <div class ="box div-box">
     <div class="box-sub">
   	<div class="mid">
-   	  <h4>Product: {{i.name}}</h4>
+   	  <h3>Product: {{i.name}}</h3>
    	</div>
     	<hr/>
-   	<div class = "mid">
+   	<div class = "bottom-box">
          <!--
    	 <span ><h5 class="left clear">Price:  </h5><h6 class="right clear">{{i.price|floatformat:2}}</h6></span>
    	  <span class="clear"><h5 class="left">Description: </h5><h6 class="right"> {{i.description}}</h6></span>
           <span class="clear"><h5 class="left">Auction Ends:</h5><h6 class="right">{{a.end_time}}</h6></span>
          
-         --> 	
-          <h5>Price:  {{i.price|floatformat:2}}</h5>
-          <h5>Description: {{i.description}}</h5>	
-          <h5>Auction Ends:</h5>
+         --> 
+          <h4>Price:  ${{i.price|floatformat:2}}</h4>
+          <h4>Description: {{i.description}}</h4>	
+          </div>
+	   <hr/>
+          <div class="mid">
+          <h4>Auction Ends:</h4>
         </div>
     </div>
     <div class="im-right">
