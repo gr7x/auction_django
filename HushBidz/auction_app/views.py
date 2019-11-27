@@ -153,6 +153,7 @@ def ValidTime(request, pk, id):
         return True
     else: 
         return False
+    return False
 
 
 
@@ -199,7 +200,6 @@ def user_page(request):
         if it is not None:
             items = items + list(chain(it))
         if pr['price__sum'] is not None:
-           # print(type(float((pr['price__sum']))))
             p = p + float(pr['price__sum'])
     print(p)
     context = {
