@@ -151,8 +151,7 @@ def ValidTime(request, pk, id):
     auction = get_object_or_404(Auction, pk=id) 
     if getattr(auction, 'end_time') > datetime.now(timezone.utc) and getattr(auction, 'start_time') < datetime.now(timezone.utc):
         return True
-    else: 
-        return False
+
     return False
 
 
