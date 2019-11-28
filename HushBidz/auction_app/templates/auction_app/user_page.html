@@ -6,7 +6,7 @@
         margin: 10px;
         box-shadow: 3px 4px;
         border-radius: 25px; 
-        background-color: aqua;       
+        background-color: rgb(77, 166, 255);       
 }
 .mid{
 	padding-right: 12px;
@@ -37,7 +37,7 @@
   width:330px;
 }
 .div-box{
- 
+ background-color: rgb(77, 166, 255);
 }
 .left{float:left;
       margin-right:5px;}
@@ -51,10 +51,10 @@
   margin-left:5px;
 }
 .done{
-	color: red;
+	color: rgb(255, 0 ,255);
 }
 .going{
-	color: green;
+	color: rgb(17, 226, 213);
 }
 </style>
 
@@ -68,13 +68,13 @@
 			
 {%if items%}
 <div>
-  <h1> You are currently winning the following items</h1>
-</div>	
-<div>
-  <h3 class="lil-left">Total Cost: ${{tot_price|floatformat:2}}</h3>
+  <h1> You are currently winning the following items!</h1>
 </div>
 
-<div class="div-box">		
+<div>
+  <h3 class="lil-left">Total Cost: ${{tot_price|floatformat:2}}</h3>
+</div>	
+<hr/>			
 {% for i, j in items %}
   <div class ="box div-box">
     <div class="box-sub">
@@ -89,8 +89,9 @@
 	   <hr/>
           <div class="mid">
            {% if j < cur %}
+              <h2> You Won this Item! </h2>
                <h3 id="content" class="done">Auction Ended: {{j}}</h3>
-               <h2> You Won this Item </h2>
+               
            {% else %}
                <h4 id="content" class="going"">Auction Ends: {{j}}</h4>
            {% endif %}
@@ -99,7 +100,7 @@
     <div class="im-right">
      <h5>Image:</h5> <img src="{{i.image}}" alt="{{i.name}}">
     </div>            
-  </div>   
+    </div> 
  
 {% endfor %}
 </div> 
@@ -111,7 +112,7 @@
 </div>
 
 {% endif %}
-
+	
 {% endblock %}
 
 
