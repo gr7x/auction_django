@@ -199,7 +199,8 @@ def user_page(request):
         it  = auction.items.all().filter(highest_bidder=usr)
         pr = auction.items.all().filter(highest_bidder=usr).aggregate(Sum('price'))      
         if it is not None:
-            gandalf.append(getattr(auction, 'end_time'))
+            for k in it:
+                gandalf.append(getattr(auction, 'end_time'))
             items = items + list(chain(it))
         if pr['price__sum'] is not None:
             p = p + float(pr['price__sum'])
