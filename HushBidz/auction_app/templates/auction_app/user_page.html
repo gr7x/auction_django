@@ -1,3 +1,8 @@
+{% extends "auction_app/base.html" %}
+
+
+
+{% block content %}
 <style>
 .box{
 	border: 2px solid black;
@@ -56,64 +61,44 @@
 .going{
 	color: rgb(17, 226, 213);
 }
-</style>
-
-
-{% extends "auction_app/base.html" %}
-
-
-
-{% block content %}
-
-			
+</style>		
 {%if items%}
-<div>
-  <h1> You are currently winning the following items!</h1>
-</div>
-
-<div>
-  <h3 class="lil-left">Total Cost: ${{tot_price|floatformat:2}}</h3>
-</div>	
-<hr/>			
-{% for i, j in items %}
-  <div class ="box div-box">
-    <div class="box-sub">
-  	<div class="mid">
-   	  <h3>Product: {{i.name}}</h3>
-   	</div>
-    	<hr/>
-   	<div class = "bottom-box">
-          <h4>Price:  ${{i.price|floatformat:2}}</h4>
-          <h4>Description: {{i.description}}</h4>	
+  <div>
+    <h1> You are currently winning the following items!</h1>
+  </div>
+  <div>
+    <h3 class="lil-left">Total Cost: ${{tot_price|floatformat:2}}</h3>
+  </div>	
+  <hr/>			
+  {% for i, j in items %}
+    <div class ="box div-box">
+      <div class="box-sub">
+  	  <div class="mid">
+   	    <h3>Product: {{i.name}}</h3>
+   	  </div>
+    	  <hr/>
+   	  <div class = "bottom-box">
+            <h4>Price:  ${{i.price|floatformat:2}}</h4>
+            <h4>Description: {{i.description}}</h4>	
           </div>
-	   <hr/>
+	  <hr/>
           <div class="mid">
            {% if j < cur %}
               <h2> You Won this Item! </h2>
-               <h3 id="content" class="done">Auction Ended: {{j}}</h3>
-               
+              <h3 id="content" class="done">Auction Ended: {{j}}</h3>  
            {% else %}
-               <h4 id="content" class="going"">Auction Ends: {{j}}</h4>
+               <h4 id="content" class="going">Auction Ends: {{j}}</h4>
            {% endif %}
           </div>
-    </div>
+     </div>
     <div class="im-right">
-     <h5>Image:</h5> <img src="{{i.image}}" alt="{{i.name}}">
+      <h5>Image:</h5> <img src="{{i.image}}" alt="{{i.name}}">
     </div>            
-    </div> 
- 
-{% endfor %}
-</div> 
-
- {% else %}
-
+   </div> 
+  {% endfor %}
+{% else %}
 <div>
   <h1> User is not participating in any auctions</h1>
 </div>
-
-{% endif %}
-	
+{% endif %}	
 {% endblock %}
-
-
-
