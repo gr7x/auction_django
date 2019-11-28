@@ -50,9 +50,17 @@
 .lil-left{
   margin-left:5px;
 }
+.done{
+	color: red;
+}
+.going{
+	color: green;
+}
 </style>
 
+
 {% extends "auction_app/base.html" %}
+
 
 
 {% block content %}
@@ -67,8 +75,7 @@
 </div>
 
 <div class="div-box">		
-{% for i in items %}
-  
+{% for i, j in items %}
   <div class ="box div-box">
     <div class="box-sub">
   	<div class="mid">
@@ -76,19 +83,18 @@
    	</div>
     	<hr/>
    	<div class = "bottom-box">
-         <!--
-   	 <span ><h5 class="left clear">Price:  </h5><h6 class="right clear">{{i.price|floatformat:2}}</h6></span>
-   	  <span class="clear"><h5 class="left">Description: </h5><h6 class="right"> {{i.description}}</h6></span>
-          <span class="clear"><h5 class="left">Auction Ends:</h5><h6 class="right">{{a.end_time}}</h6></span>
-         
-         --> 
           <h4>Price:  ${{i.price|floatformat:2}}</h4>
           <h4>Description: {{i.description}}</h4>	
           </div>
 	   <hr/>
           <div class="mid">
-          <h4>Auction Ends:</h4>
-        </div>
+           {% if j < cur %}
+               <h3 id="content" class="done">Auction Ended: {{j}}</h3>
+               <h2> You Won this Item </h2>
+           {% else %}
+               <h4 id="content" class="going"">Auction Ends: {{j}}</h4>
+           {% endif %}
+          </div>
     </div>
     <div class="im-right">
      <h5>Image:</h5> <img src="{{i.image}}" alt="{{i.name}}">
@@ -107,5 +113,6 @@
 {% endif %}
 
 {% endblock %}
+
 
 

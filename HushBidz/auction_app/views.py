@@ -188,22 +188,26 @@ def view_auction(request, pk):
 
 @login_required()
 def user_page(request):
+    x = datetime.now(timezone.utc)
     usr = request.user.username 
     act =  Auction.objects.all().values_list('id', flat=True)
     items = []
+    gandalf = []
     p = 0.00
     for id in act:
         auction = get_object_or_404(Auction, pk=id)
         it  = auction.items.all().filter(highest_bidder=usr)
         pr = auction.items.all().filter(highest_bidder=usr).aggregate(Sum('price'))      
         if it is not None:
+            gandalf.append(getattr(auction, 'end_time'))
             items = items + list(chain(it))
         if pr['price__sum'] is not None:
             p = p + float(pr['price__sum'])
-    print(p)
+    items = zip(items, gandalf) 
     context = {
     'tot_price': p,
     'auctions': auction,
     'items': items,
+    'cur' : x,
     }
     return render(request, 'auction_app/user_page.html', context)      
