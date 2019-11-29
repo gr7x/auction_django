@@ -1,0 +1,42 @@
+{% extends "auction_app/base.html" %}
+
+{% block content %}
+<title>{{auction.title}}</title>
+</head>
+<body>
+
+
+
+<h1>List of Items</h1>
+<table border="1" width="600">
+<tr>
+<td>Name</td>
+<td>Description</td>
+<td>Price</td>
+<td>Image</td>
+<td>Highest Bidder</td>
+</tr>
+
+{% for item in items %}
+<tr>
+<td>
+{{ item.name }}
+</td>
+<td>
+{{ item.description }}</td>
+<td>
+{{ item.price }}
+</td>
+<td>
+{{ item.image }}
+</td>
+<td>
+{{ item.highest_bidder }}
+</td>
+</tr>
+{% endfor %}
+</table>
+
+
+</body>
+{% endblock %}

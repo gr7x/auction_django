@@ -62,6 +62,25 @@ def manage_auction(request):
     }
     return render(request, 'auction_app/manage_auction.html', context)
 
+@login_required
+def admin_view(request):
+    all_auctions = Auction.objects.all()
+    context = {'all_auctions': all_auctions}
+
+    return render (request, 'auction_app/admin_view.html', context)
+
+@login_required
+def admin_auction_view(request,pk):
+    auction = get_object_or_404(Auction, pk=pk)
+    items = auction.items.all()
+    context = {
+        'items':items,
+        'auction':auction,
+        }
+
+    return render (request, 'auction_app/admin_auction_view.html',context)
+
+
 
 @login_required()
 def add_items(request, pk):
