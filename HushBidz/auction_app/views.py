@@ -1,6 +1,6 @@
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.template import loader
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import logout
@@ -152,9 +152,17 @@ def view_item(request, pk, id):
     instance = get_object_or_404(Items, id=id)
     form = PostForm(request.POST or None, instance=instance)
     if form.is_valid() and ValidTime(request, pk, id):
-        item = form.save(commit=False)
-        item.highest_bidder = request.user.username
-        form.save()
+        if postPrice >= instance.price:
+            item = form.save(commit=False)
+            item.highest_bidder = request.user.username
+            #form.save()
+            item.save()
+            return redirect('view_item', pk=pk, id=id)        
+        else:
+            raise Http404("Bid price was below the previous price")
+            return redirect('view_item', pk=pk, id=id)
+    else:
+        raise Http404("This auction is not available")
         return redirect('view_item', pk=pk, id=id)
     auction = get_object_or_404(Auction, pk=pk)
     items   = auction.items.all()
@@ -231,3 +239,4 @@ def user_page(request):
     'cur' : x,
     }
     return render(request, 'auction_app/user_page.html', context)      
+
