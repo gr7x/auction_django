@@ -10,7 +10,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.models import User
-from .forms import AddItemForm, AddAuctionForm, PostForm
+from .forms import AddItemForm, AddAuctionForm, PostForm, LivePostForm
 from django.contrib.auth.decorators import login_required
 from itertools import chain
 from django.db.models import Sum
@@ -136,7 +136,7 @@ def create_auction(request):
     return HttpResponse(template.render(context,request))
 
 @login_required()
-def liveAuction(request):
+def liveAuction(request, pk):
     if request.method == "POST":
         form = LivePostForm(request.POST or None, instance=instance)
         if form.is_valid():
@@ -146,28 +146,31 @@ def liveAuction(request):
             item.save()
             return redirect('liveAuction')
     else:
-        form = PostForm()
-    auctions = Auction.objects.all()
+        form = LivePostForm()
+    auctions = get_object_or_404(Auction, pk=pk)
 
     return render(request, 'auction_app/liveAuction.html', {'auctions' : auctions}) #'form' : form, 
 
 @login_required()
 def view_item(request, pk, id):
-    instance = get_object_or_404(Items, id=id)
-    form = PostForm(request.POST or None, instance=instance)
-    if form.is_valid() and ValidTime(request, pk, id):
-        if postPrice >= instance.price:
+    if request.method == "POST":
+        instance = get_object_or_404(Items, id=id)
+        form = PostForm(request.POST or None, instance=instance)
+        if form.is_valid() and ValidTime(request, pk, id):
+        #if form.is_valid():#postPrice >= instance.price:
             item = form.save(commit=False)
             item.highest_bidder = request.user.username
-            #form.save()
+    #form.save()
             item.save()
             return redirect('view_item', pk=pk, id=id)        
         else:
             raise Http404("Bid price was below the previous price")
             return redirect('view_item', pk=pk, id=id)
+    #else:
+    #    raise Http404("This auction is not available")
+    #    return redirect('view_item', pk=pk, id=id)
     else:
-        raise Http404("This auction is not available")
-        return redirect('view_item', pk=pk, id=id)
+        form = PostForm()
     auction = get_object_or_404(Auction, pk=pk)
     items   = auction.items.all()
     item = get_object_or_404(Items, id=id)
@@ -179,10 +182,9 @@ def view_item(request, pk, id):
 
 @login_required
 def ValidTime(request, pk, id):
-    auction = get_object_or_404(Auction, pk=id) 
+    auction = get_object_or_404(Auction, pk=pk) 
     if getattr(auction, 'end_time') > datetime.now(timezone.utc) and getattr(auction, 'start_time') < datetime.now(timezone.utc):
         return True
-
     return False
 
 

@@ -4,19 +4,15 @@
 {% block content %}
 	{% if auctions %}
 				
-	  {% for a in auctions %}
-		<h1>{{a.name}}</h1>
-		<!--h2>a.url</h2-->
-		<div>
-		  <!--a href="{% url 'manage_auction' %}">Begin Live Auction</a-->
-		  <!--Export Results-->
-		</div>	
+
+		<h1>{{auctions.name}}</h1>
+	
 		
 		<div>
 					    
-		{% if a.items %}
+		{% if auctions.items %}
 					    
-		  {% for i in a.items.all %}
+		  {% for i in auctions.items.all %}
 			<h2>{{i.name}}</h2>
        			 <form method="POST">
                           {% csrf_token %}
@@ -45,8 +41,6 @@
      		{% endif %}
 					    
 	 </div>
-
-	{% endfor %}
 				
 	{% else %}
       	<p> No Auctions to show</p>

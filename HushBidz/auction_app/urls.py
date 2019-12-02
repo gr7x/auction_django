@@ -17,5 +17,5 @@ urlpatterns = [
     path('user_page/', views.user_page, name='user_page'),
     path('admin_view/', views.admin_view, name='admin_view'),
     path('admin_auction_view/<pk>', views.admin_auction_view, name='admin_auction_view'),
-    url(r'^liveAuction$', views.liveAuction, name='liveAuction')
+    path('liveAuction/<pk>', views.liveAuction, name='liveAuction')
 ]
