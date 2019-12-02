@@ -64,6 +64,8 @@ def manage_auction(request):
 
 @login_required
 def admin_view(request):
+    if request.user.is_superuser == False:
+        return redirect('login')
     all_auctions = Auction.objects.all()
     context = {'all_auctions': all_auctions}
 
@@ -71,13 +73,15 @@ def admin_view(request):
 
 @login_required
 def admin_auction_view(request,pk):
+    if request.user.is_superuser == False:
+        return redirect('login')
     auction = get_object_or_404(Auction, pk=pk)
     items = auction.items.all()
     context = {
         'items':items,
         'auction':auction,
         }
-
+    
     return render (request, 'auction_app/admin_auction_view.html',context)
 
 
