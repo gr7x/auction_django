@@ -1,18 +1,98 @@
 {% load static %}
 <html>
   <head>
-    <title>Hu$hBidz</title>
+    <title>Hu$hBidzz</title>
+    <style>
+
+body {
+    background-image: url({% static 'auction_app/let-there-be-sun.png'%});
+    background-repeat: repeat;
+    color: #66477f;
+}
+
+a {
+    color: #FF00FF;
+}
+
+a:hover {
+    color: #ff00ff;
+    animation: blinker 0.2s linear infinite;
+}
+
+@keyframes blinker {
+    50% { color: cyan; }
+}
+
+div#outer {
+    width: 80%;
+    background-color:#FFFFFF;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px;
+    border: thin solid #FFBCBC;
+
+}
+
+div#header {
+    padding: 15px;
+    margin: 0px;
+    text-align: center;
+}
+
+
+div#main {
+    margin-top: 1px;
+    padding: 10px;
+}
+
+div#loginfo {
+    float:right;
+}
+
+#nav > ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #e8fcfc;
+}
+
+#nav > ul > li {
+  float: left;
+}
+
+#nav > ul > li > a {
+  display: block;
+  color: #333;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+#nav > ul > li a:hover {
+  background-color: #ff00ff;
+  color: #fff;
+}
+
+    </style>
   </head>
   <body>
-    <div class="page-header">
+    <div id="outer">
+    <div id="header">
       <a href="/auction_app/">
-        <img src="{% static 'auction_app/HushBidzLogo.png'%}" width="200px" alt="sshhhhhhhh"/>
+        <img src="{% static 'auction_app/HushBidzLogo.png'%}" id="logo" width="200px" alt="sshhhhhhhh"/>
       </a>
+      <div id="loginfo">
       {% if user.is_authenticated %}
         Logged in as <a href="{% url 'user_page' %}" style ="text-decoration: none">{{ user.username }}</a>
+      {% else %}
+        Not logged in.
       {% endif %}
+      </div>
     </div>
-    <div class="navigation">
+    <div id="nav">
       <ul>
         {% if user.is_authenticated %}
           <li><a href="/auction_app/accounts/logout">Log out</a></li>
@@ -23,10 +103,11 @@
         {% endif %}
       </ul>
     </div>
-    <div class="content container">
+    <div id="main">
       <!-- From the django girls tutorial. Not using some of their divs -->
       {% block content %}
       {% endblock %}
+    </div>
     </div>
   </body>
 </html>
