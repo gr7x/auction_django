@@ -3,23 +3,52 @@
 
 
 {% block content %}
-	<h1>{{auction.name}}</h1>
-	<p>{{auction.description}}</p>
+<style>
+#items {
+  font-size: 20px;
+  border-collapse: collapse;
+  width: 100%;
+}
+#items td, #items th {
+  padding: 30px;
+}
+#items tr:nth-child(odd){
+  background-color: #e8fcfc;
+}
+#items th {
+  background-color: #c4eded;
+  font-weight: bold;
+}
+#price {
+  text-align: right;
+}
+</style>
+<h1>{{auction.name}}</h1>
+<p>{{auction.description}}</p>
 
 
-				    <div>
-					{% if items %}
-					    
-					{% for i in items %}
-          <h1><a href="{% url 'view_item' pk=auction.pk id=i.id %}">{{i.name}}</a></h1>
-					    <h2>{{i.price}}</h2>
-					    <img src="{{i.image}}" alt="Item Image"/>
-					{% endfor %}
-					    
-					{% else %}
-      					<p> No Items to show</p>
-     					{% endif %}    
-   
-				    </div>
+			    <div>
+				{% if items %}
+				
+        <table id="items">
+          <tr>
+            <th></th>
+            <th>Item</th>
+            <th>Current bid</th>
+          </tr>
+				{% for i in items %}
+           <tr> 
+             <td><img src="{{i.image}}" alt="Item Image"/></td>
+             <td><a href="{% url 'view_item' pk=auction.pk id=i.id %}">{{i.name}}</a></td>
+             <td id="price">${{i.price}}</td>
+           </tr>
+				{% endfor %}
+         </table>
+				    
+				{% else %}
+     					<p> No Items to show</p>
+    					{% endif %}    
+  
+			    </div>
 
  {% endblock %}
