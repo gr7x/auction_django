@@ -13,12 +13,14 @@
 		{% if auctions.items %}
 					    
 		  {% for i in auctions.items.all %}
+{% if i.highest_bidder == 'no bids'%}
+
 			<h2>{{i.name}}</h2>
        			 <form method="POST">
                           {% csrf_token %}
 	                  {{ form.as_p}}
 
-	  <input type="hidden" name="parent_id value="{{i.auction}}">
+	  <input type="hidden" name="id value="{{i.id}}">
 
 	  <input type="hidden" name="name value="{{i.name}}">
 
@@ -34,6 +36,7 @@
 	  		  <button type="submit">Post</button>
 
          		 </form>
+{% endif %}
 		  {% endfor %}
 					    
 		{% else %}
