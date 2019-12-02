@@ -1,16 +1,41 @@
 {% extends "auction_app/base.html" %}
 
 {% block content %}
+<style>
+h1 {
+  background-color: #c4eded;
+  text-align: center;
+  width: 100%;
+}
+table {
+  width: 100%;
+}
+
+td {
+  text-align: right;
+}
+
+#iteminfo td {
+  padding: 40px;
+}
+
+</style>
 <h1>{{item.name}}</h1>
-<h2>{{item.price}}</h2>
-<p>{{item.description}}</p>
-<!p>Current High Bidder: {{item.highest_bidder}}</p>
-<div>
-<h1>Bid on this item</h1>
-<form method="post">
+<table>
+  <tr id="iteminfo">
+    <td><img src="{{item.image}}" alt="Item image"/></td>
+    <td>Current High Bidder:<br/> {{item.highest_bidder}}</td>
+    <td style="font-size: 30px; font-weight:bold;">${{item.price}}</td>
+  </tr>
+  <tr>
+    <td>Bid on this item</td>
+    <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Update">
-</form>
-</div>
+    <td>{{ form.as_p }}</td>
+    <td><input type="submit" value="Submit bid"></td>
+    </form>
+</table>
+
+{{item.description}}
+
 {% endblock %}
