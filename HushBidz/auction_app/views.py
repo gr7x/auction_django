@@ -154,21 +154,21 @@ def liveAuction(request, pk):
 @login_required()
 def view_item(request, pk, id):
     if request.method == "POST":
+        postPrice = request.POST['price']
         instance = get_object_or_404(Items, id=id)
         form = PostForm(request.POST or None, instance=instance)
         if form.is_valid() and ValidTime(request, pk, id):
-        #if form.is_valid():#postPrice >= instance.price:
-            item = form.save(commit=False)
-            item.highest_bidder = request.user.username
-    #form.save()
-            item.save()
-            return redirect('view_item', pk=pk, id=id)        
+            if float(postPrice) >= instance.price and float(postPrice) > 0:
+                item = form.save(commit=False)
+                item.highest_bidder = request.user.username
+                item.save()
+                return redirect('view_item', pk=pk, id=id)        
+            else:
+                raise Http404("Bid price was below the previous price")
+                return redirect('view_item', pk=pk, id=id)
         else:
-            raise Http404("Bid price was below the previous price")
+            raise Http404("This auction is not available")
             return redirect('view_item', pk=pk, id=id)
-    #else:
-    #    raise Http404("This auction is not available")
-    #    return redirect('view_item', pk=pk, id=id)
     else:
         form = PostForm()
     auction = get_object_or_404(Auction, pk=pk)
