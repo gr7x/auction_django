@@ -152,9 +152,16 @@ def liveAuction(request, pk):
                 return redirect('liveAuction', pk=pk)
     else:
         form = LivePostForm()
-    auctions = get_object_or_404(Auction, pk=pk)
+    auction = get_object_or_404(Auction, pk=pk)
+    items   = auction.items.all()
+    #item = get_object_or_404(Items, id=id)
+    context = {
+            'auction': auction,
+            'items': items,
+            'form': form
+    }
 
-    return render(request, 'auction_app/liveAuction.html', {'auctions' : auctions}) #'form' : form, 
+    return render(request, 'auction_app/liveAuction.html', context)
 
 @login_required()
 def view_item(request, pk, id):
@@ -163,7 +170,7 @@ def view_item(request, pk, id):
         instance = get_object_or_404(Items, id=id)
         form = PostForm(request.POST or None, instance=instance)
         if form.is_valid() and ValidTime(request, pk, id):
-            if float(postPrice) >= instance.price and float(postPrice) > 0:
+            if instance.price > float(postPrice) and float(postPrice) > 0:
                 item = form.save(commit=False)
                 item.highest_bidder = request.user.username
                 item.save()

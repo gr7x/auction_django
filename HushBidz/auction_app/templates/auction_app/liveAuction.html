@@ -2,38 +2,26 @@
 
 
 {% block content %}
-	{% if auctions %}
+	{% if auction %}
 				
 
-		<h1>{{auctions.name}}</h1>
+		<h1>{{auction.name}}</h1>
 	
 		
 		<div>
 					    
-		{% if auctions.items %}
+		{% if items %}
 					    
-		  {% for i in auctions.items.all %}
+		  {% for i in items.all %}
 {% if i.highest_bidder == 'no bids'%}
 
 			<h2>{{i.name}}</h2>
-       			 <form method="POST">
+       			 <form method="post">
                           {% csrf_token %}
 	                  {{ form.as_p}}
 
-	  <input type="hidden" name="id value="{{i.id}}">
-
-	  <input type="hidden" name="name value="{{i.name}}">
-
-	  <input type="hidden" name="description value="{{i.description}}">
-
-	  <input type="hidden" name="image value="{{i.image}}">
-          		  Winner:</br>
-          		  <input type="text" name="highest_bidder" /><br />
-
-          		  Price:</br>
-          		  $<input type="number" name="price" min="0.00" max="10000.00" step="0.01" /><br />
           
-	  		  <button type="submit">Post</button>
+	  		  <input type="submit" value="Update">
 
          		 </form>
 {% endif %}
