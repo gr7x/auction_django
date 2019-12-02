@@ -13,18 +13,14 @@
 		{% if items %}
 					    
 		  {% for i in items.all %}
-{% if i.highest_bidder == 'no bids'%}
-
+		      {% if i.highest_bidder == 'no bids'%}
 			<h2>{{i.name}}</h2>
        			 <form method="post">
                           {% csrf_token %}
-	                  {{ form.as_p}}
-
-          
+	                  {{ form.as_p}}          
 	  		  <input type="submit" value="Update">
-
          		 </form>
-{% endif %}
+		      {% endif %}
 		  {% endfor %}
 					    
 		{% else %}

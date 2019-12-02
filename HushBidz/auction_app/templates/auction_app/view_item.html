@@ -1,41 +1,36 @@
 {% extends "auction_app/base.html" %}
 
 {% block content %}
-<style>
-h1 {
-  background-color: #c4eded;
-  text-align: center;
-  width: 100%;
-}
-table {
-  width: 100%;
-}
-
-td {
-  text-align: right;
-}
-
-#iteminfo td {
-  padding: 40px;
-}
-
-</style>
+				<div>  
+				    <p id="timer">Time Remaining: </p>
+				    <script>  
+					var deadline = new Date("{{ auction.end_time.isoformat }}");
+					var x = setInterval(function() { 
+						var now = new Date().getTime(); 
+						var t = deadline - now; 
+						var days = Math.floor(t / (1000 * 60 * 60 * 24)); 
+						var hours = Math.floor((t%(1000 * 60 * 60 * 24))/(1000 * 60 * 60)); 
+						var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60)); 
+						var seconds = Math.floor((t % (1000 * 60)) / 1000); 
+						document.getElementById("timer").innerHTML = days + "d "  
+						+ hours + "h " + minutes + "m " + seconds + "s "; 
+				    		if (t < 0) { 
+ 				       			clearInterval(x); 
+				        		document.getElementById("timer").innerHTML = "EXPIRED"; 
+				   	 	    } 
+					    }, 1000); 
+					</script> 
+				    </div>
 <h1>{{item.name}}</h1>
-<table>
-  <tr id="iteminfo">
-    <td><img src="{{item.image}}" alt="Item image"/></td>
-    <td>Current High Bidder:<br/> {{item.highest_bidder}}</td>
-    <td style="font-size: 30px; font-weight:bold;">${{item.price}}</td>
-  </tr>
-  <tr>
-    <td>Bid on this item</td>
-    <form method="post">
+<h2>{{item.price}}</h2>
+<p>{{item.description}}</p>
+<!p>Current High Bidder: {{item.highest_bidder}}</p>
+<div>
+<h1>Bid on this item</h1>
+<form method="post">
     {% csrf_token %}
-    <td>{{ form.as_p }}</td>
-    <td><input type="submit" value="Submit bid"></td>
-    </form>
-</table>
-
-{{item.description}}
-
+    {{ form.as_p }}
+    <input type="submit" value="Update">
+</form>
+</div>
 {% endblock %}

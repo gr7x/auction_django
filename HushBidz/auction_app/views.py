@@ -187,6 +187,7 @@ def view_item(request, pk, id):
     items   = auction.items.all()
     item = get_object_or_404(Items, id=id)
     context = {
+            'auction': auction,
             'item': item,
             'form': form
     }
