@@ -4,25 +4,23 @@
 {% block content %}
 	{% if auctions %}
 				
-	  {% for a in auctions %}
-		<h1>{{a.name}}</h1>
-		<!--h2>a.url</h2-->
-		<div>
-		  <!--a href="{% url 'manage_auction' %}">Begin Live Auction</a-->
-		  <!--Export Results-->
-		</div>	
+
+		<h1>{{auctions.name}}</h1>
+	
 		
 		<div>
 					    
-		{% if a.items %}
+		{% if auctions.items %}
 					    
-		  {% for i in a.items.all %}
+		  {% for i in auctions.items.all %}
+{% if i.highest_bidder == 'no bids'%}
+
 			<h2>{{i.name}}</h2>
        			 <form method="POST">
                           {% csrf_token %}
 	                  {{ form.as_p}}
 
-	  <input type="hidden" name="parent_id value="{{i.auction}}">
+	  <input type="hidden" name="id value="{{i.id}}">
 
 	  <input type="hidden" name="name value="{{i.name}}">
 
@@ -38,6 +36,7 @@
 	  		  <button type="submit">Post</button>
 
          		 </form>
+{% endif %}
 		  {% endfor %}
 					    
 		{% else %}
@@ -45,8 +44,6 @@
      		{% endif %}
 					    
 	 </div>
-
-	{% endfor %}
 				
 	{% else %}
       	<p> No Auctions to show</p>
