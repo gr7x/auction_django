@@ -23,6 +23,8 @@
 					    <h1>{{i.name}}</h1>
 					    <h2>{{i.price}}</h2>
 {%if i.image%}
+{% load static %}
+
 					    <img src="{{i.image.url}}" alt="Item Image">
 {% endif%}
 					{% endfor %}

@@ -91,7 +91,7 @@ def add_items(request, pk):
 
     auction = get_object_or_404(Auction, pk=pk)
     if request.method == 'POST':
-        form = AddItemForm(request.POST)
+        form = AddItemForm(request.POST, request.FILES)
         if form.is_valid():
             #parent_id = int(request.POST.get('parent_id'))
             item = form.save(commit=False)
@@ -258,4 +258,3 @@ def user_page(request):
     'cur' : x,
     }
     return render(request, 'auction_app/user_page.html', context)      
-

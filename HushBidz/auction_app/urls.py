@@ -1,5 +1,7 @@
 from django.urls import path
 from django.conf.urls import url
+from django.conf import settings
+from django.conf.urls.static import static 
 
 from . import views
 from django.contrib.auth import views as authViews
@@ -19,3 +21,6 @@ urlpatterns = [
     path('admin_auction_view/<pk>', views.admin_auction_view, name='admin_auction_view'),
     path('liveAuction/<pk>', views.liveAuction, name='liveAuction')
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
