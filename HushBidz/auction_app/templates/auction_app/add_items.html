@@ -7,22 +7,10 @@
 	<p>{{auction.description}}</p>
 <div>
         <h2>Add an item</h2>
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
           {% csrf_token %}
 	  {{ form.as_p}}
 	  <input type="hidden" name="parent_id value="{{ auction.id }}">
-          <!--Item name:</br-->
-         
-          <!--input type="text" name="name" /><br /-->
-
-          <!--Item image:</br-->
-          <!--input id="id_image" type="file" name="image"><br /-->
-
-          <!--Starting price:</br-->
-          <!--$<input type="number" min="0.00" max="10000.00" step="0.01" name="price"/><br /-->
-
-          <!--Description:<br /-->
-          <!--textarea rows="10" cols="80" name="description"></textarea><br /-->
 
           <button type="submit">Post</button>
 
@@ -34,7 +22,9 @@
 					{% for i in items %}
 					    <h1>{{i.name}}</h1>
 					    <h2>{{i.price}}</h2>
-					    <img src="{{i.image}}" alt="Item Image">
+{%if i.image%}
+					    <img src="{{i.image.url}}" alt="Item Image">
+{% endif%}
 					{% endfor %}
 					    
 					{% else %}

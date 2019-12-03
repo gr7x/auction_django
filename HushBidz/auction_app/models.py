@@ -26,7 +26,7 @@ class Items(models.Model):
     name = models.CharField('name', max_length=256, default='An Item')  
     price = models.DecimalField('price', max_digits=6, decimal_places=2, default='0.00')
     description = models.TextField('description', max_length=256, default='item description')
-    image = models.ImageField('image', upload_to='item_image', null=True, blank=True)
+    image = models.ImageField('image', upload_to='images/', null=True, blank=True)
     highest_bidder = models.CharField('bidder', max_length=256, default='no bids')  
 
     def __str__(self):
