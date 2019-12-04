@@ -98,10 +98,12 @@ div#loginfo {
         {% if user.is_authenticated %}
           <li><a href="/auction_app/accounts/logout">Log out</a></li>
 		  {% if request.user.is_superuser == True %}
-          <li><a href="{% url 'manage_auction' %}">Add/Edit Auctions</a></li>
-          <li><a href="{% url 'live_view' %}">Enter Live Auction Results</a></li>
 
-          <li><a href="{% url 'admin_view' %}">View Auction Results</a></li>
+          <li><a href="{% url 'manage_auction' %}">Add Auctions</a></li>
+          <li><a href="{% url 'live_view' %}">Live Auction Entry</a></li>
+
+
+          <li><a href="{% url 'admin_view' %}">Auction Results</a></li>
 		  {% endif %}
         {% else %}
           <li><a href="/auction_app/accounts/login">Login</a></li>
