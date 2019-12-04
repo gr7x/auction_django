@@ -258,7 +258,9 @@ def user_page(request):
         if pr['price__sum'] is not None:
             p = p + float(pr['price__sum'])
     items = zip(items, gandalf) 
+    MEDIA_URL = '/auction_app'
     context = {
+    'MEDIA_URL': MEDIA_URL,
     'tot_price': p,
     'auctions': auction,
     'items': items,

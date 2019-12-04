@@ -92,7 +92,11 @@
           </div>
      </div>
     <div class="im-right">
-      <h5>Image:</h5> <img src="{{i.image}}" alt="{{i.name}}">
+      <h5>Image:</h5> {%if i.image%}
+{% load static %}
+
+					    <img src="{{MEDIA_URL}}{{i.image.url}}" alt="Item Image">
+{% endif%}
     </div>            
    </div> 
   {% endfor %}
