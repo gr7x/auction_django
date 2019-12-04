@@ -7,12 +7,13 @@ from .models import Auction, Items
 class AddAuctionForm(forms.ModelForm):
     class Meta:
         model = Auction
-        fields = ('name', 'description', 'start_time', 'end_time')
+        fields = ('name', 'description', 'start_time', 'end_time', 'live_auction')
         widgets = {
             'name': forms.TextInput(attrs={'required': True}),
             'description': forms.TextInput(attrs={'required': True}),
             'start_time': forms.DateTimeInput(attrs={'required': True}),
             'end_time': forms.DateTimeInput(attrs={'required': True}),
+	    'live_auction': forms.CheckboxInput(attrs={'required': False}),
         }
 
 

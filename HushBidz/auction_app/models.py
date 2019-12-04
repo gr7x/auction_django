@@ -13,6 +13,7 @@ class Auction(models.Model):
     #auction_type = models.BooleanField('auction_type', default = False, null=True, blank=True )
     description = models.TextField('description', default = 'description', max_length=256)
     admin=models.CharField(max_length=256)
+    live_auction=models.BooleanField(default=False)
     start_time=models.DateTimeField('start_time', default = timezone.now)
     end_time=models.DateTimeField('end_time', default = one_hour_hence)
     numUsers = 0
