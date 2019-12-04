@@ -20,6 +20,7 @@ urlpatterns = [
     path('view_item/<pk>/<id>/', views.view_item, name='view_item'),
     path('user_page/', views.user_page, name='user_page'),
     path('admin_view/', views.admin_view, name='admin_view'),
+    path('live_view/', views.live_view, name='live_view'),
     path('admin_auction_view/<pk>', views.admin_auction_view, name='admin_auction_view'),
     path('liveAuction/<pk>', views.liveAuction, name='liveAuction')
 ]

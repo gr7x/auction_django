@@ -136,6 +136,15 @@ def create_auction(request):
     }       
     return HttpResponse(template.render(context,request))
 
+@login_required
+def live_view(request):
+    if request.user.is_superuser == False:
+        return redirect('login')
+    all_auctions = Auction.objects.all()
+    context = {'all_auctions': all_auctions}
+
+    return render (request, 'auction_app/live_view.html', context)
+
 @login_required()
 def liveAuction(request, pk):
     if request.user.is_superuser == False:

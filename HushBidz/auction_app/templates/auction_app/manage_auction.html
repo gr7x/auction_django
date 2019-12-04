@@ -4,6 +4,8 @@
 {% block content %}
 
 				
+				      <a href="{% url 'setup_auction' %}">Add Auctions</a>
+<h1>Existing Auctions:</h1>
 			   {%if auctions%}
 				
 			    {% for a in auctions %}
@@ -25,8 +27,7 @@
       				<p> No Auctions to show</p>
 				
      				{% endif %}
-
-				      <a href="{% url 'setup_auction' %}">Add Auctions</a> 
+ 
 				 </div>
 	{% endblock %}
 
