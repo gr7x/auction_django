@@ -28,7 +28,11 @@
 {{ item.price }}
 </td>
 <td>
-{{ item.image }}
+{%if i.image%}
+{% load static %}
+
+					    <img src="{{ MEDIA_URL }}{{i.image.url}}" style="max-width:100%;" alt="Item Image">
+{% endif%}
 </td>
 <td>
 {{ item.highest_bidder }}

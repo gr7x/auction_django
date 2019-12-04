@@ -76,8 +76,9 @@ def admin_auction_view(request,pk):
         return redirect('login')
     auction = get_object_or_404(Auction, pk=pk)
     items = auction.items.all()
+    MEDIA_URL = '/auction_app'
     context = {
-        'items':items,
+        'MEDIA_URL': MEDIA_URL,
         'auction':auction,
         }
     
@@ -155,7 +156,9 @@ def liveAuction(request, pk):
     auction = get_object_or_404(Auction, pk=pk)
     items   = auction.items.all()
     #item = get_object_or_404(Items, id=id)
+    MEDIA_URL = '/auction_app'
     context = {
+            'MEDIA_URL': MEDIA_URL,
             'auction': auction,
             'items': items,
             'form': form
@@ -186,7 +189,9 @@ def view_item(request, pk, id):
     auction = get_object_or_404(Auction, pk=pk)
     items   = auction.items.all()
     item = get_object_or_404(Items, id=id)
+    MEDIA_URL = '/auction_app'
     context = {
+            'MEDIA_URL': MEDIA_URL,
             'auction': auction,
             'item': item,
             'form': form
@@ -225,7 +230,9 @@ def place_bid(request, pk, id):
 def view_auction(request, pk):
     auction = get_object_or_404(Auction, pk=pk)
     items = auction.items.all()
+    MEDIA_URL = '/auction_app'
     context = {
+    'MEDIA_URL': MEDIA_URL,
     'auction': auction,
     'items': items,
     }
