@@ -3,25 +3,39 @@
 
 {% block content %}
 
+<style>
+table, th, td {
+  border: 1px solid #00ffff;
+}
+
+td {
+  padding: 10px;
+}
+</style>
+
 				
 				      <a href="{% url 'setup_auction' %}">Add Auctions</a>
 <h1>Existing Auctions:</h1>
 			   {%if auctions%}
 				
+         <table>
+            <th>
+              <td><b>Description</td></b>
+              <td><b>Start time</td></b>
+              <td><b>End time</td></b>
+              <td><b>Add items</td></b>
+            </th>
 			    {% for a in auctions %}
-				<h1>{{a.name}}</h1>
-			   	<h2>{{a.description}}</h2>
-			   	<h2>{{a.start_time}}</h2>
-			   	<h2>{{a.end_time}}</h2>
-
-
- 
-				    <div>
-				<a href="{% url 'add_items' pk=a.pk %}">Add Items</a> 
-				{% endfor %}
+            <tr>
+            <td>{{a.name}}</td>
+            <td>{{a.description}}</td>
+            <td>{{a.start_time}}</td>
+            <td>{{a.end_time}}</td>
+            <td><a href="{% url 'add_items' pk=a.pk %}">Add Items</a></td>
+            </tr>
+   				{% endfor %}
+          </table>
 				
- 
-				    </div> 
 				    <div>
 				{% else %}
       				<p> No Auctions to show</p>

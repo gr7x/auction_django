@@ -20,22 +20,38 @@
 				   	 	    } 
 					    }, 1000); 
 					</script> 
-				    </div>
-<h1>{{item.name}}</h1>
-{%if item.image%}
-{% load static %}
+<style>
+h1 {
+  background-color: #c4eded;
+  text-align: center;
+  width: 100%;
+}
+table {
+  width: 100%;
+}
 
-					    <img src="{{MEDIA_URL}}{{item.image.url}}" alt="Item Image">
-{% endif%}
-<h2>{{item.price}}</h2>
-<p>{{item.description}}</p>
-<!p>Current High Bidder: {{item.highest_bidder}}</p>
-<div>
-<h1>Bid on this item</h1>
-<form method="post">
+td {
+  text-align: right;
+  padding-right: 40px;
+}
+
+
+</style>
+<h1>{{item.name}}</h1>
+<table>
+  <tr id="iteminfo">
+              <td id="itempic"><img src="{{MEDIA_URL}}{{item.image.url}}" alt="Item image"/ width="300px"></td>
+    <td>Current High Bidder:<br/> {{item.highest_bidder}}</td>
+    <td style="font-size: 30px; font-weight:bold;">${{item.price}}</td>
+  </tr>
+  <tr>
+    <td>Bid on this item</td>
+    <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Place Bid">
-</form>
-</div>
+    <td>{{ form.as_p }}</td>
+    <td><input type="submit" value="Submit bid"></td>
+    </form>
+</table>
+
+{{item.description}}
 {% endblock %}
