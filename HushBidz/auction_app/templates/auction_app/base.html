@@ -97,7 +97,9 @@ div#loginfo {
       <ul>
         {% if user.is_authenticated %}
           <li><a href="/auction_app/accounts/logout">Log out</a></li>
+		  {% if request.user.is_superuser == True %}
           <li><a href="{% url 'manage_auction' %}">Manage Auctions</a></li>
+		  {% endif %}
         {% else %}
           <li><a href="/auction_app/accounts/login">Login</a></li>
           <li><a href="/auction_app/accounts/signup">Register</a></li>

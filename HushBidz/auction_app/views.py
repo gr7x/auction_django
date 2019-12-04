@@ -54,7 +54,9 @@ def index(request):
     return HttpResponse(template.render(context,request))
 
 @login_required()
-def manage_auction(request):	
+def manage_auction(request):
+    if request.user.is_superuser == False:
+        return redirect('login')
     auctions = Auction.objects.all()
     context = {
         'auctions': auctions,
