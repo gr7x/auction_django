@@ -18,7 +18,6 @@ from django.views.generic.edit import UpdateView
 from datetime import datetime, timezone
 
 
-
 class ItemUpdate(UpdateView):
     model = Items
     fields = ['highest_bidder', 'price']
@@ -93,18 +92,17 @@ def add_items(request, pk):
     if request.method == 'POST':
         form = AddItemForm(request.POST, request.FILES)
         if form.is_valid():
-            #parent_id = int(request.POST.get('parent_id'))
             item = form.save(commit=False)
-            item.auction = auction#Auction.objects.get(id=parent_id)
+            item.auction = auction
             #form.cleaned_data[]
             item.save()
-            return redirect('add_items', pk=auction.pk)#parent_id)
+            return redirect('add_items', pk=auction.pk)
         else: 
             print(form.errors)
     else: 
         form = AddItemForm()
     items = auction.items.all()
-    print(items)
+    #print(items)
     context = {
     'auction': auction,
     'items': items,
