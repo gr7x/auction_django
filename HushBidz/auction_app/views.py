@@ -103,7 +103,9 @@ def add_items(request, pk):
         form = AddItemForm()
     items = auction.items.all()
     #print(items)
+    MEDIA_URL = '/auction_app'
     context = {
+    'MEDIA_URL': MEDIA_URL,
     'auction': auction,
     'items': items,
     'form': form,

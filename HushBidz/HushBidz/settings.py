@@ -126,6 +126,6 @@ LOGIN_REDIRECT_URL = 'index'
 
 LOGIN_URL = '/auction_app/accounts/login/'
 
-MEDIA_ROOT =  '/auction_app/'					#os.path.join(BASE_DIR, 'media') 
-MEDIA_URL = 'http://127.0.0.1:8000/auction_app/media/'		#'/media/'
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media') 
+MEDIA_URL = '/media/'		
 
