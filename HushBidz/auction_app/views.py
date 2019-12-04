@@ -138,21 +138,25 @@ def create_auction(request):
 
 @login_required()
 def liveAuction(request, pk):
-    #if request.user.is_superuser == False:
-     #   return redirect('login')
+    if request.user.is_superuser == False:
+        return redirect('login')
     form = LivePostForm(request.POST or None)
     if request.method == "POST":
         id = request.POST['highest_bidder']
-        if isinstance(id, int):
-            user = get_object_or_404(User, id=id)
+        user = get_object_or_404(User, id=id)
+        if user:
             instance = request.POST['i_id']
             form = LivePostForm(request.POST, instance=instance)
             if form.is_valid():
                 #parent_id = int(request.POST.get('parent_id'))
                 item = form.save(commit=False)
-                item.user = user
+                item.highest_bidder = user.name
                 item.save()
                 return redirect('liveAuction', pk=pk)
+            else:
+                print(form.errors)
+        else:
+            raise Http404("Bidder ID must be int")
     else:
         form = LivePostForm()
     auction = get_object_or_404(Auction, pk=pk)
