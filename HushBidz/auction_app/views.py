@@ -142,21 +142,23 @@ def liveAuction(request, pk):
         return redirect('login')
     form = LivePostForm(request.POST or None)
     if request.method == "POST":
-        id = request.POST['highest_bidder']
-        user = get_object_or_404(User, id=id)
+        user_id = int(request.POST['highest_bidder'])
+        user = User.objects.get(id=user_id)
+        #user = get_object_or_404(User, pk=user_id)
+        #user = User.get_by_id(user_id)
         if user:
-            instance = request.POST['i_id']
+            i_id = int(request.POST['i_id'])
+            instance = Items.objects.get(id=i_id)
             form = LivePostForm(request.POST, instance=instance)
             if form.is_valid():
-                #parent_id = int(request.POST.get('parent_id'))
                 item = form.save(commit=False)
-                item.highest_bidder = user.name
+                item.highest_bidder = user.username
                 item.save()
                 return redirect('liveAuction', pk=pk)
             else:
                 print(form.errors)
         else:
-            raise Http404("Bidder ID must be int")
+            raise Http404("No matching user") 
     else:
         form = LivePostForm()
     auction = get_object_or_404(Auction, pk=pk)
