@@ -23,8 +23,9 @@
 {% endif%}
        			 <form method="post">
                           {% csrf_token %}
-	                  {{ form.as_p}}          
-	  		  <input type="submit" value="Update">
+	                  {{ form.as_p}} 
+<input type="hidden" name="i_id" value="{{i.id}}">         
+	  		  <input type="submit"  value="Update">
          		 </form>
 		      {% endif %}
 		  {% endfor %}

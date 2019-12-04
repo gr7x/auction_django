@@ -87,6 +87,7 @@ div#loginfo {
       <div id="loginfo">
       {% if user.is_authenticated %}
         Logged in as <a href="{% url 'user_page' %}" style ="text-decoration: none">{{ user.username }}</a>
+        <div>Bidder number: {{ user.id }}</div>
       {% else %}
         Not logged in.
       {% endif %}

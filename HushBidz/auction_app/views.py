@@ -79,7 +79,7 @@ def admin_auction_view(request,pk):
     MEDIA_URL = '/auction_app'
     context = {
         'MEDIA_URL': MEDIA_URL,
-        'auction':auction,
+        'items':items,
         }
     
     return render (request, 'auction_app/admin_auction_view.html',context)
@@ -140,15 +140,17 @@ def create_auction(request):
 def liveAuction(request, pk):
     #if request.user.is_superuser == False:
      #   return redirect('login')
+    form = LivePostForm(request.POST or None)
     if request.method == "POST":
         id = request.POST['highest_bidder']
-        if not isinstance(id, int):
-            instance = get_object_or_404(Items, id=id)
-            form = LivePostForm(request.POST or None, instance=instance)
+        if isinstance(id, int):
+            user = get_object_or_404(User, id=id)
+            instance = request.POST['i_id']
+            form = LivePostForm(request.POST, instance=instance)
             if form.is_valid():
                 #parent_id = int(request.POST.get('parent_id'))
                 item = form.save(commit=False)
-                #item.blog = Blog.objects.get(id=parent_id)
+                item.user = user
                 item.save()
                 return redirect('liveAuction', pk=pk)
     else:
