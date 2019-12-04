@@ -65,7 +65,11 @@
 
 					  <td>  <img src="{{ MEDIA_URL }}{{i.image.url}}" style="max-width:100%;" alt="Item Image" width="200px"></td>
 {% endif%}
+            {% if auction.live_auction == False %}
              <td><a href="{% url 'view_item' pk=auction.pk id=i.id %}">{{i.name}}</a></td>
+             {% else %}
+              <td>{{i.name}}</td>
+              {% endif %}
              <td id="price">${{i.price}}</td>
            </tr>
 				{% endfor %}
