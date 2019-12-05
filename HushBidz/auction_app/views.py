@@ -16,6 +16,7 @@ from itertools import chain
 from django.db.models import Sum
 from django.views.generic.edit import UpdateView
 from datetime import datetime, timezone
+from decimal import Decimal
 
 
 class ItemUpdate(UpdateView):
@@ -186,17 +187,17 @@ def liveAuction(request, pk):
 @login_required()
 def view_item(request, pk, id):
     if request.method == "POST":
-        postPrice = request.POST['price']
         instance = get_object_or_404(Items, id=id)
         form = PostForm(request.POST or None, instance=instance)
         if form.is_valid() and ValidTime(request, pk, id):
-            if instance.price > float(postPrice) and float(postPrice) > 0:
+            postPrice = Decimal(request.POST['price'])
+            if float(postPrice) > 0 and instance.price < float(postPrice): #and 
                 item = form.save(commit=False)
                 item.highest_bidder = request.user.username
                 item.save()
                 return redirect('view_item', pk=pk, id=id)        
             else:
-                raise Http404("Bid price was below the previous price")
+                #raise Http404("Bid price was below the previous price")
                 return redirect('view_item', pk=pk, id=id)
         else:
             raise Http404("This auction is not available")
