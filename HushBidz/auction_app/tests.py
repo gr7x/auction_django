@@ -46,6 +46,14 @@ class AuctionTest(TestCase):
 
 class ItemTest(TestCase):
 
+    def test_invalid_form(self):
+        a = Auction.objects.create(name='Foo', description='Bar',  start_time=timezone.now(), end_time=(timezone.now() + timezone.timedelta(hours=1)))
+        a.save()
+        w = Items.objects.create(name='Foo', description='', price=-1, auction=a)
+        data = {'name': w.name, 'description': w.description, 'price': w.price, 'auction': w.auction}
+        form = AddItemForm(data=data)
+        self.assertFalse(form.is_valid())
+
     def test_model_relation(self):
         x = Auction.objects.create(name="test1")
         y = Items(auction=Auction.objects.create(name="test2"))
