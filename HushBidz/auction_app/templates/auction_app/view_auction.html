@@ -22,7 +22,34 @@
 #price {
   text-align: right;
 }
+
+
+.div-container{
+	float:left;
+	border: 1px solid;
+	margin: 5px;
+	margin-left: 2%;
+	margin-top: 10px;
+	border-radius: 1px;
+	width: 200px;
+	height: 240px;
+	color: black;
+	text-align: center;
+	box-shadow: 10px 10px 5px grey;
+
+  
+	
+}
+.container-label{
+bottom: 2px;
+	margin-top: 12px;
+  	text-align: center;
+	
+	position: relative;
+}
 </style>
+
+
 
 				<div>  
 				    <p id="timer">Time Remaining: </p>
@@ -47,10 +74,28 @@
 
 <h1>{{auction.name}}</h1>
 <p>{{auction.description}}</p>
-
+<hr/>
+<!--<p>Select table view or card View</p>-->
 
 			    <div>
 				{% if items %}
+{% for i in items %}
+<div class="div-container">
+<div class="div-heading">
+</div>
+
+<div class"div-container-body">
+{%if i.image%}
+{% load static %}
+
+					  <td>  <a href="{% url 'view_item' pk=auction.pk id=i.id %}"><img src="{{ MEDIA_URL }}{{i.image.url}}" style="max-width:100%;" alt="Item Image" width="200px"></a></td>
+{% endif%}
+<h4 class="container-label">{{i.name}} ${{i.price}}</h4>
+</div>
+</div>
+{% endfor %}
+
+<!-- option 2 -->
 				
         <table id="items">
           <tr>

@@ -1,6 +1,17 @@
 {% extends "auction_app/base.html" %}
 
 {% block content %}
+  <style>
+.container-reg{
+	width:75%;
+	border: 1px solid #333;
+	border-radius: 10px;
+	margin-left: 13%;
+
+}
+
+  </style>
+  <div class="container-reg">
   <h4>Register</h4>
   {% if messages %}
     {% for message in messages %}
@@ -18,5 +29,6 @@
       </tr>
     </table>
   </form>
+  </div>
 
 {% endblock %}

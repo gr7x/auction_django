@@ -2,27 +2,37 @@
 <html>
   <head>
     <title>Hu$hBidzz</title>
+	  <meta charset="utf-8">
+ 	 <meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <style>
 
 body {
-    background-image: url({% static 'auction_app/let-there-be-sun.png'%});
+    background-image: url({% static 'auction_app/winter.jpg'%});
     background-repeat: repeat;
     color: #66477f;
 }
 
 a {
-    color: #FF00FF;
+    color: #000099;
 }
 
 a:hover {
-    color: #ff00ff;
-    animation: blinker 0.2s linear infinite;
+    color: #666699;
+   /* animation: blinker 0.2s linear infinite;*/
 }
 
 @keyframes blinker {
     50% { color: cyan; }
 }
+.clean-link{
 
+	text-decoration: none;
+
+}
 div#outer {
     width: 80%;
     background-color:#FFFFFF;
@@ -31,7 +41,7 @@ div#outer {
     margin-left: auto;
     margin-right: auto;
     padding: 0px;
-    border: thin solid #FFBCBC;
+    border: thin solid #fff;
 
 }
 
@@ -45,6 +55,7 @@ div#header {
 div#main {
     margin-top: 1px;
     padding: 10px;
+    
 }
 
 div#loginfo {
@@ -56,24 +67,64 @@ div#loginfo {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #e8fcfc;
+  background-color: #333;
 }
 
 #nav > ul > li {
   float: left;
+  color: #fff;
 }
 
 #nav > ul > li > a {
   display: block;
-  color: #333;
+  color: #fff;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
 }
 
 #nav > ul > li a:hover {
-  background-color: #ff00ff;
+  background-color: #000066;
   color: #fff;
+}
+
+
+.container {
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 7px;
+
+}
+
+.bar1, .bar2, .bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: #fff;
+  margin: 6px 0;
+  transition: 0.4s;
+
+}
+
+.change .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+  transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -8px);
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  text-align: center;
 }
 
     </style>
@@ -90,13 +141,23 @@ div#loginfo {
         <div>Bidder number: {{ user.id }}</div>
       {% else %}
         Not logged in.
+	<nav>
+	<a href="/auction_app/accounts/login" class="clean-link">Login</a>
+          <a href="/auction_app/accounts/signup" class="clean-link">Register</a>
+	</nav>
       {% endif %}
       </div>
     </div>
     <div id="nav">
       <ul>
+	<li><div class="container" onclick="myFunction(this)">
+ 	 <div class="bar1"></div>
+  	<div class="bar2"></div>
+  	<div class="bar3"></div>
+	</div>
+	</li>
         {% if user.is_authenticated %}
-          <li><a href="/auction_app/accounts/logout">Log out</a></li>
+          
 		  {% if request.user.is_superuser == True %}
 
           <li><a href="{% url 'manage_auction' %}">Add Auctions</a></li>
@@ -105,6 +166,7 @@ div#loginfo {
 
           <li><a href="{% url 'admin_view' %}">Auction Results</a></li>
 		  {% endif %}
+	<li><a href="/auction_app/accounts/logout">Log out</a></li>
         {% else %}
           <li><a href="/auction_app/accounts/login">Login</a></li>
           <li><a href="/auction_app/accounts/signup">Register</a></li>
@@ -117,5 +179,11 @@ div#loginfo {
       {% endblock %}
     </div>
     </div>
+    <footer class="footer"> Online Market </footer>
   </body>
 </html>
+<script>
+function myFunction(x) {
+  x.classList.toggle("change");
+}
+</script>

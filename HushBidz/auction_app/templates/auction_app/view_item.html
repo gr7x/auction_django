@@ -1,6 +1,7 @@
 {% extends "auction_app/base.html" %}
 
 {% block content %}
+<button type="button" class="btn btn-primary active">Back</button>
 				<div>  
 				    <p id="timer">Time Remaining: </p>
 				    <script>  
@@ -34,24 +35,48 @@ td {
   text-align: right;
   padding-right: 40px;
 }
-
-
+#hidden{
+	visibility:hidden;
+}
+.container-box{
+	border:1px solid #000000;
+}
 </style>
+<!--
+<div class="alert alert-success alert-dismissible" id="hidden">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Success!</strong> Your bid has been placed.
+</div>
+-->
+
 <h1>{{item.name}}</h1>
 <table>
-  <tr id="iteminfo">
+  <tr id="iteminfo" >
+<hr/>
               <td id="itempic"><img src="{{MEDIA_URL}}{{item.image.url}}" alt="Item image"/ width="300px"></td>
     <td>Current High Bidder:<br/> {{item.highest_bidder}}</td>
-    <td style="font-size: 30px; font-weight:bold;">${{item.price}}</td>
+    <td style="font-size: 30px; font-weight:bold; margin: 10px;">${{item.price}}</td>
+
   </tr>
   <tr>
-    <td>Bid on this item</td>
-    <form method="post">
+	</hr>
+    <td style=">Bid on this item</td>
+    <form method="post" onsubmit="return hider()">
     {% csrf_token %}
-    <td>{{ form.as_p }}</td>
-    <td><input type="submit" value="Submit bid"></td>
+    <a href="#" data-toggle="tooltip" title="Hooray!"><td>{{ form.as_p }}</td></a>
+    <td><input type="submit" class="btn btn-primary btn-lg"  value="Submit bid"></td>
     </form>
 </table>
 
-{{item.description}}
+<a href="#" data-toggle="tooltip" title="Place Bid">{{item.description}}</a>
+ <script type="text/javascript">
+	$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();   
+});
+	function hider(){
+    		document.getElementById("hidden").visibility = visible;
+	}
+
+  </script>
 {% endblock %}
+
